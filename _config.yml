@@ -4,7 +4,7 @@
 
 url: http://anoobbava.github.io
 title: Awesome Web Blog
-subtitle: A blog for Web tut's.
+subtitle: 
 author: Anoob Bava
 simple_search: https://www.google.com/search
 description:
@@ -95,7 +95,7 @@ disqus_short_name:
 disqus_show_comment_count: false
 
 # Google Analytics
-google_analytics_tracking_id: 
+google_analytics_tracking_id: UA-101186678-1
 
 # Facebook Like
 facebook_like: false
