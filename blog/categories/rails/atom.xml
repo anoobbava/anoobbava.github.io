@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Awesome Web Blog]]></title>
-  <link href="http://anoobbava.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Rails | Awesome Web Blog]]></title>
+  <link href="http://anoobbava.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
   <updated>2017-10-18T20:13:07+05:30</updated>
   <id>http://anoobbava.github.io/</id>
