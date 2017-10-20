@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2017-10-20T10:08:30+05:30</updated>
+  <updated>2017-10-20T10:10:27+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -22,10 +22,7 @@
 
 <p>Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a <em>DevOps</em>.</p>
 
-<!-- ![Image of Travis CI](images/travis_logo.png) -->
-
-
-<p><img src="travis_logo.png/890/280"></p>
+<p><img src="images/travis_logo.png" alt="Image of Travis CI" /></p>
 
 <h2>DevOps</h2>
 
