@@ -77,3 +77,7 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
 ![travis log](images/travis_log.png)
 
 Image courtesy: [travis](https://www.travis-ci.org/)
+
+{% if page.comments %}
+
+{% endif %}
