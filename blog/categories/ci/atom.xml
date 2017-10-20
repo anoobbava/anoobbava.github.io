@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ci | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/ci/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2017-10-19T00:55:52+05:30</updated>
+  <updated>2017-10-20T10:08:30+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -22,7 +22,10 @@
 
 <p>Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a <em>DevOps</em>.</p>
 
-<p><img src="images/travis_logo.png" alt="Image of Travis CI" /></p>
+<!-- ![Image of Travis CI](images/travis_logo.png) -->
+
+
+<p><img src="travis_logo.png/890/280"></p>
 
 <h2>DevOps</h2>
 
@@ -115,6 +118,8 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
 <p><img src="images/travis_log.png" alt="travis log" /></p>
 
 <p>Image courtesy: <a href="https://www.travis-ci.org/">travis</a></p>
+
+<p></p>
 ]]></content>
   </entry>
   
