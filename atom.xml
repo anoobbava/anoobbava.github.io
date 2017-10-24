@@ -4,7 +4,7 @@
   <title><![CDATA[Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2017-10-24T19:54:16+05:30</updated>
+  <updated>2017-10-24T20:55:51+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,61 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Introduction to Circle CI]]></title>
+    <link href="http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/"/>
+    <updated>2017-10-24T20:06:55+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci</id>
+    <content type="html"><![CDATA[<h2>Intro &amp;&amp; Setup Project</h2>
+
+<p>CircleCI helps you ship better code, faster. To kick things off, you&rsquo;ll need to add a config.yml file to your project, and start building. After that, we&rsquo;ll start a new build for you each time make a PR. Similar to travis; here also needed a yml file for configs and update.</p>
+
+<h2>Steps</h2>
+
+<p>1.Signup using github</p>
+
+<p><img src="http://anoobbava.github.io/images/circleci/intro.png" width="800" height="300"></p>
+
+<ol>
+<li>Add our Project</li>
+</ol>
+
+
+<p><img src="http://anoobbava.github.io/images/circleci/add_project.png" width="800" height="300"></p>
+
+<ol>
+<li><p>Create a folder named .circleci and add a fileconfig.yml (so that the filepath in .circleci/config.yml).</p></li>
+<li><p>Populate the config.yml with the contents of the below file.</p></li>
+</ol>
+
+
+<script src="https://gist.github.com/anoobbava/2c9417987a3e67210395119aa5083c48.js"></script>
+
+
+<ol>
+<li><p>Update the config.yml to reflect your project&rsquo;s configuration.</p></li>
+<li><p>Push this change to GitHub.</p></li>
+<li><p>Start building! This will launch your project on Circle CI , now it will analyse the code and check the system for PR.all done, system will automatically test when make our PR.</p></li>
+</ol>
+
+
+<p><img src="http://anoobbava.github.io/images/circleci/circle_Pr.png" width="800" height="300"></p>
+
+<p>Awesome, we got our error on build we can see what is the error.</p>
+
+<p><img src="http://anoobbava.github.io/images/circleci/circle_error_pr.png" width="800" height="300"></p>
+
+<p>The issue is we have mentioned is ruby in gem file as 2.3.1 but in the config of circle is 2.4.1. we will update it as another commit.</p>
+
+<p>I Found it, circle CI using docker images pre-built ones, Here we are using the ruby version 2.3.1 in Gemfile and the config.yml added 2.4.1. Going the below url
+<a href="https://circleci.com/docs/2.0/circleci-images/#ruby">go to circle docs info</a>
+- most matched version is 2.3; now we are commiting using that code. All work fine.Now we select the image,
+We can select linux, IOS, or custom host in circle CI, For this tutorial I have used the linux plan, hobbyist one. We can use containers.</p>
+
+<p><img src="http://anoobbava.github.io/images/circleci/circle_all_test_passed.png" width="800" height="300"></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Continous Integration Using Travis CI]]></title>

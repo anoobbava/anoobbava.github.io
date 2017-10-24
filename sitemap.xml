@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/</loc>
+<lastmod>2017-10-24T20:06:55+05:30</lastmod>
+</url>
+<url>
 <loc>http://anoobbava.github.io/blog/2017/10/17/continous-integration-using-travis/</loc>
 <lastmod>2017-10-17T23:57:58+05:30</lastmod>
 </url>
