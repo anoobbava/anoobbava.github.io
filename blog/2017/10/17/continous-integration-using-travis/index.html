@@ -89,6 +89,9 @@
 
 <time class='entry-date' datetime='2017-10-17T23:57:58+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>17</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>11:57 pm</span></time>
         
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://anoobbava.github.io">Comments</a>
+        
       </p>
     
   </header>
@@ -98,7 +101,10 @@
 
 <p>Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a <em>DevOps</em>.</p>
 
-<p><img src="images/travis_logo.png" alt="Image of Travis CI" /></p>
+<!-- ![Image of Travis CI](images/travis_logo.png) -->
+
+
+<p><img src="/images/travis_logo.png" width="600" height="300"></p>
 
 <h2>DevOps</h2>
 
@@ -112,7 +118,10 @@
 </ul>
 
 
-<p><img src="images/travis_devops.jpeg" alt="devops" /></p>
+<!-- ![devops](images/travis_devops.jpeg) -->
+
+
+<p><img src="/images/travis_devops.jpeg" width="500" height="300"></p>
 
 <h2>CI(Continous Integration)</h2>
 
@@ -138,11 +147,17 @@
 
 <h3>workflow</h3>
 
-<p><img src="images/travis_work_flow.png" alt="work flow" /></p>
+<!-- ![work flow](images/travis_work_flow.png) -->
+
+
+<p><img src="/images/travis_work_flow.png" width="1000" height="800"></p>
 
 <h3>PR work flow</h3>
 
-<p><img src="images/travis_pr_workflow.png" alt="PR flow" /></p>
+<!-- ![PR flow](images/travis_pr_workflow.png)  -->
+
+
+<p><img src="/images/travis_pr_workflow.png" width="1000" height="800"></p>
 
 <h2>prerequisites</h2>
 
@@ -153,13 +168,21 @@
 </ul>
 
 
-<p>Here we are testing for Ruby on rails.To test our project has test coverage we are using the simplecov gem.Testing using SimpleCov is explained in this <a href="https://anoobbava.wordpress.com/2017/10/03/find-test-coverage-locally/">link</a>
-<img src="images/travis_simple_cov.png" alt="simple cov" /></p>
+<p>Here we are testing for Ruby on rails.To test our project has test coverage we are using the simplecov gem.Testing using SimpleCov is explained in this <a href="https://anoobbava.wordpress.com/2017/10/03/find-test-coverage-locally/">link</a></p>
+
+<!-- ![simple cov](images/travis_simple_cov.png) -->
+
+
+<p><img src="/images/travis_simple_cov.png" width="1000" height="800"></p>
 
 <h2>Back in Action</h2>
 
-<p>Next thing what we do is to Login with Github
-<img src="images/travis_sigin-with-gituhb.png" alt="github login" /></p>
+<p>Next thing what we do is to Login with Github</p>
+
+<!-- ![github login](images/travis_sigin-with-gituhb.png) -->
+
+
+<p><img src="/images/travis_sigin-with-gituhb.png" width="500" height="200"></p>
 
 <p>All the gitHub Repo&rsquo;s are synched to the Travis-CI.Now Turn ON the Switch against the Repos. We need to update a YML file for travis to automate the testing.There is an online tool to validate the Travis YML using this <a href="https://lint.travis-ci.org/">link</a>.Right now we are discussing only the simple ones for start.</p>
 
@@ -171,24 +194,40 @@
 
 
 <p>Mentioned only the Ruby and the Version. Also before starting our testing, we need to setup a test database.The reason is we don&rsquo;t want to test the production dB by any chance. Now comes the script part, we are migrating the database to the latest structure and running the rspecs. Addons are something we can add the result of the test details to another tool like codeclimate. I have used the codeclimate, will report the test coverage to gitHub also. Next is commit this code and push to master. We can config the travis to run only at the time of PR(Settings of Travis CI corresponding project).
-Need to check the settings of the travis-ci of particular repo, like when the build started or start build only when the yml is present like that.
-<img src="images/travis_settings.png" alt="Travis config" /></p>
+Need to check the settings of the travis-ci of particular repo, like when the build started or start build only when the yml is present like that.</p>
+
+<!-- ![Travis config](images/travis_settings.png) -->
+
+
+<p><img src="/images/travis_settings.png" width="800" height="200"></p>
 
 <h4>Now it is check-in time.Add the code and made a PR</h4>
 
-<p><img src="images/travis_checkin.png" alt="checkin the code" /></p>
+<!-- ![checkin the code](images/travis_checkin.png) -->
+
+
+<p><img src="/images/travis_checkin.png" width="600" height="200"></p>
 
 <h4>After made PR, the Travis-CI is analysing the code</h4>
 
-<p><img src="images/travis_pr_checking.png" alt="travis pr checking" /></p>
+<!-- ![travis pr checking](images/travis_pr_checking.png) -->
+
+
+<p><img src="/images/travis_checkin.png" width="600" height="200"></p>
 
 <h4>we can see the status of PR by clicking on the see details from gitHub page.</h4>
 
-<p><img src="images/travis_success.png" alt="travis success" /></p>
+<!-- ![travis success](images/travis_success.png) -->
+
+
+<p><img src="/images/travis_success.png" width="600" height="200"></p>
 
 <h4>Hooray, all success, now we can see the detailed log for details.</h4>
 
-<p><img src="images/travis_log.png" alt="travis log" /></p>
+<!-- ![travis log](images/travis_log.png) -->
+
+
+<p><img src="/images/travis_log.png" width="800" height="300"></p>
 
 <p>Image courtesy: <a href="https://www.travis-ci.org/">travis</a></p>
 </div>
@@ -277,8 +316,8 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
 
         github.showRepos({
             user: 'anoobbava',
-            count: 0,
-            skip_forks: true,
+            count: ,
+            skip_forks: ,
             target: '#gh_repos'
         });
     });
