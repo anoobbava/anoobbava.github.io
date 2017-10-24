@@ -10,7 +10,8 @@ categories: [Ruby, Rails, CI, Travis]
 
 Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a *DevOps*.
 
-![Image of Travis CI](images/travis_logo.png)
+<!-- ![Image of Travis CI](images/travis_logo.png) -->
+{% img /images/travis_logo.png 600 300 %}
 
 ## DevOps
 * Is a combination of cultural philosophies.
@@ -20,7 +21,8 @@ Before you start in to our CI, one must understand what is CI and why the CI is 
 * DevOps help us to achive better results in minimal Time.
 * when Continous Integration and Continous Delivery makes us to reduce the development time.
 
-![devops](images/travis_devops.jpeg)
+<!-- ![devops](images/travis_devops.jpeg) -->
+{% img /images/travis_devops.jpeg 500 300 %}
 
 ## CI(Continous Integration)
 * Is a development practice.
@@ -37,9 +39,12 @@ Before you start in to our CI, one must understand what is CI and why the CI is 
 * facebook and Rails are using this.
 
 ### workflow
-![work flow](images/travis_work_flow.png)
+<!-- ![work flow](images/travis_work_flow.png) -->
+{% img /images/travis_work_flow.png 1000 800 %}
+
 ### PR work flow
-![PR flow](images/travis_pr_workflow.png) 
+<!-- ![PR flow](images/travis_pr_workflow.png)  -->
+{% img /images/travis_pr_workflow.png 1000 800 %}
 
 ## prerequisites
 * Active Github Account.
@@ -47,10 +52,12 @@ Before you start in to our CI, one must understand what is CI and why the CI is 
 * test coverage for system.
 
 Here we are testing for Ruby on rails.To test our project has test coverage we are using the simplecov gem.Testing using SimpleCov is explained in this [link](https://anoobbava.wordpress.com/2017/10/03/find-test-coverage-locally/)
-![simple cov](images/travis_simple_cov.png)
+<!-- ![simple cov](images/travis_simple_cov.png) -->
+{% img /images/travis_simple_cov.png 1000 800 %}
 ## Back in Action
 Next thing what we do is to Login with Github
-![github login](images/travis_sigin-with-gituhb.png)
+<!-- ![github login](images/travis_sigin-with-gituhb.png) -->
+{% img /images/travis_sigin-with-gituhb.png 500 200 %}
 
 All the gitHub Repo's are synched to the Travis-CI.Now Turn ON the Switch against the Repos. We need to update a YML file for travis to automate the testing.There is an online tool to validate the Travis YML using this [link](https://lint.travis-ci.org/).Right now we are discussing only the simple ones for start.
 
@@ -60,21 +67,25 @@ In order to function the Travis and install the depandancies, need a config file
 
 Mentioned only the Ruby and the Version. Also before starting our testing, we need to setup a test database.The reason is we don't want to test the production dB by any chance. Now comes the script part, we are migrating the database to the latest structure and running the rspecs. Addons are something we can add the result of the test details to another tool like codeclimate. I have used the codeclimate, will report the test coverage to gitHub also. Next is commit this code and push to master. We can config the travis to run only at the time of PR(Settings of Travis CI corresponding project).
 Need to check the settings of the travis-ci of particular repo, like when the build started or start build only when the yml is present like that.
-![Travis config](images/travis_settings.png)
-
+<!-- ![Travis config](images/travis_settings.png) -->
+{% img /images/travis_settings.png 800 200 %}
 #### Now it is check-in time.Add the code and made a PR
 
-![checkin the code](images/travis_checkin.png)
+<!-- ![checkin the code](images/travis_checkin.png) -->
+{% img /images/travis_checkin.png 600 200 %}
 
 #### After made PR, the Travis-CI is analysing the code
 
-![travis pr checking](images/travis_pr_checking.png)
+<!-- ![travis pr checking](images/travis_pr_checking.png) -->
+{% img /images/travis_checkin.png 600 200 %}
 #### we can see the status of PR by clicking on the see details from gitHub page.
 
-![travis success](images/travis_success.png)
+<!-- ![travis success](images/travis_success.png) -->
+{% img /images/travis_success.png 600 200 %}
 #### Hooray, all success, now we can see the detailed log for details.
 
-![travis log](images/travis_log.png)
+<!-- ![travis log](images/travis_log.png) -->
+{% img /images/travis_log.png 800 300 %}
 
 Image courtesy: [travis](https://www.travis-ci.org/)
 
