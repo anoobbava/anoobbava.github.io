@@ -65,7 +65,31 @@ All the gitHub Repo's are synched to the Travis-CI.Now Turn ON the Switch agains
 In order to function the Travis and install the depandancies, need a config file. travis.yml is that kind of file will help us to implement that feature. Below is sample file. There are other numerous configs, here is the basic to start and running.
 <script src="https://gist.github.com/anoobbava/712777537f3d2653db2819b5add3402c.js"></script>
 
-Mentioned only the Ruby and the Version. Also before starting our testing, we need to setup a test database.The reason is we don't want to test the production dB by any chance. Now comes the script part, we are migrating the database to the latest structure and running the rspecs. Addons are something we can add the result of the test details to another tool like codeclimate. I have used the codeclimate, will report the test coverage to gitHub also. Next is commit this code and push to master. We can config the travis to run only at the time of PR(Settings of Travis CI corresponding project).
+Mentioned only the Ruby and the Version. Also before starting our testing, we need to setup a test database.The reason is we don't want to test the production dB by any chance. Now comes the script part, we are migrating the database to the latest structure and running the rspecs.I have used the codeclimate.
+
+## Why Codeclimate
+
+codeclimate is a code analysis engine will help to check the code has any issues using gems like breakman and rubocop.Also it has built in analysis engine will help us to analyse the code test coverage and also numerous features like badge for our GitHub account. signup using your Github and authorise access codeclimate to our repo. An advantage is that for opensource repo; the codeclimate is free for lifetime, Cool and Awesome right, thanks to codeclimate for their services. 
+Login to codeclimate account and goto our repo, settings tab> Test Coverage. there is a token is present. This token is a link between Travis CI and codeclimate.
+{% img /images/travis_test_coverage_cc.png 1000 800 %}
+Now see the magic, login to our travis account, goto our project> more options > settings > Environment Variables 
+{% img /images/travis_environment.png 1000 800 %}
+
+create a new environment variable CODECLIMATE_REPO_TOKEN and copy the value from the codeclimate account.
+
+All Set, now only simple task is copy the same token to the .travis.yml file also where XX marked.
+
+note : I am taking the images from my another project for clarity, do not need to confuse with that :D
+
+<script src="https://gist.github.com/anoobbava/79bfabda8e9ef4fdf35f75161920d0ae.js"></script>
+
+Dont forget to add this gems our test group.
+
+
+checkout the below the code if any doubts with the spec_helper.
+<script src="https://gist.github.com/anoobbava/e197d468b7f8d8cc3e404fed9ced1b38.js"></script>
+
+. Next is commit this code and push to master. We can config the travis to run only at the time of PR(Settings of Travis CI corresponding project).
 Need to check the settings of the travis-ci of particular repo, like when the build started or start build only when the yml is present like that.
 <!-- ![Travis config](images/travis_settings.png) -->
 {% img /images/travis_settings.png 800 200 %}
