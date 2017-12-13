@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2017-12-13T21:38:57+05:30</updated>
+  <updated>2017-12-13T21:41:26+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -237,15 +237,16 @@ It is Free and from github. Go to the <a href="https://gist.github.com/">ink</a>
 <script src="https://gist.github.com/anoobbava/e197d468b7f8d8cc3e404fed9ced1b38.js"></script>
 
 
-<p>```</p>
-
-<p>All of configs are not covered here, Please refer the official octopress blog for details. Happy Blogging all of you, dont forget that once you completed, then do the below steps to complete</p>
+<pre><code>
+All of configs are not covered here, Please refer the official octopress blog for details. Happy Blogging all of you, dont forget that once you completed, then do the below steps to complete
+</code></pre>
 
 <p>rake generate
 rake deploy
 rake add .
 git commit -m &lsquo;Completed the blog about the octopress&rsquo;
-git push origin source</p>
+git push origin source
+```</p>
 ]]></content>
   </entry>
   
