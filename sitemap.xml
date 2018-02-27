@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/</loc>
+<lastmod>2018-02-27T16:44:30+05:30</lastmod>
+</url>
+<url>
 <loc>http://anoobbava.github.io/blog/2017/11/14/create-a-blogging-site-using-octopress-and-github/</loc>
 <lastmod>2017-11-14T19:20:57+05:30</lastmod>
 </url>

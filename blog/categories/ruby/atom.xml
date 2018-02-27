@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2017-12-13T21:41:26+05:30</updated>
+  <updated>2018-02-27T18:42:41+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,191 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Implement Rspec in ROR Project]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/"/>
+    <updated>2018-02-27T16:44:30+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project</id>
+    <content type="html"><![CDATA[<h2>Rspec, A Brief</h2>
+
+<p> Below is the some syntaxes and errors i have encountered when using rspec, I have shared here for every ones' use.</p>
+
+<h3>install rspec</h3>
+
+<p>  install the rspec gem using the below command</p>
+
+<pre><code class="``">  gem install rspec
+</code></pre>
+
+<h3>create a test Group</h3>
+
+<pre><code class="``">  group :test do
+    gem 'codeclimate-test-reporter', '~&gt; 1.0.0'
+    gem 'database_cleaner', '~&gt; 1.5'
+    gem 'factory_bot', '~&gt; 4.8', '&gt;= 4.8.2'
+    gem 'factory_bot_rails'
+    gem 'faker', '~&gt; 1.6.1'
+    gem 'rails-controller-testing', '~&gt; 0.0.3'
+    gem 'rspec', '~&gt; 3.6'
+    gem 'shoulda-matchers'
+    gem 'simplecov'
+  end
+</code></pre>
+
+<p>  the gem factory_girl is deprecated right now, so we are using the factory_bot instead.</p>
+
+<h3>Add rspec-rails to the Development Group</h3>
+
+<pre><code class="``">  gem 'rspec-rails'
+</code></pre>
+
+<p>  Now we need to add the development, test group</p>
+
+<h3>Intialise the folders for Rspec</h3>
+
+<p>  achieved using the below command</p>
+
+<pre><code class="```">   rspec --init
+</code></pre>
+
+<h3>Require rspec/rails to spec helper</h3>
+
+<pre><code class="``">  require 'rspec/rails'
+</code></pre>
+
+<p>   need to add above command to the spec_helper</p>
+
+<h3>You are Go</h3>
+
+<p>  All set, now delete the test/ folder in the project and create the specs in models and ccontrollers</p>
+
+<p>  to generate rspec file for existing controller</p>
+
+<pre><code class="``">  rails generate rspec:controller Controller_name
+</code></pre>
+
+<p>  to generate rspec file for exising model</p>
+
+<pre><code class="``">  rails generate rspec:model model_name
+</code></pre>
+
+<h3>setup test database</h3>
+
+<p>  Do the below step only if you don&rsquo;t have the test database created</p>
+
+<pre><code class="``">  rake db:test:prepare
+</code></pre>
+
+<h3>Why we need the database cleaner</h3>
+
+<p>  Is a useful tool to clear the dB from the test database. for that need to use the database_cleaner gem in test group.</p>
+
+<ol>
+<li><p>add the gem</p>
+
+<pre><code>gem 'database_cleaner'
+</code></pre></li>
+<li><p>require in spec_helper</p>
+
+<pre><code>require 'database_cleaner'
+</code></pre></li>
+<li><p>add the tables where clearing is needed</p>
+
+<pre><code>DatabaseCleaner.strategy = :truncation, { :only =&gt; %w[users] }
+</code></pre>
+
+<p>here users is one table, multiple tables can be added using comma</p></li>
+<li>Call the action</li>
+</ol>
+
+
+<p>  add the below line where we need to clean the dB</p>
+
+<pre><code class="``">  DatabaseCleaner.clean
+</code></pre>
+
+<p>  Note: in psql manually create test database  and do rake db:migrate RAILS_ENV=test</p>
+
+<h3>Important Points to  remember</h3>
+
+<ol>
+<li>To clear all the data</li>
+</ol>
+
+
+<p>  add the below line to the spec_helper</p>
+
+<pre><code class="``">  config.after :all do
+   ActiveRecord::Base.subclasses.each(&amp;:delete_all)
+  end
+</code></pre>
+
+<p>  2.To view the console of test dB</p>
+
+<pre><code class="``">  rails c test
+</code></pre>
+
+<ol>
+<li><p>If below Error comes up</p>
+
+<p>undefined method `sign_in' for #&lt;RSpec::Core:</p>
+
+<h2>Solution</h2>
+
+<p>add below line to spec_helper</p>
+
+<pre><code>config.include Devise::TestHelpers, type: :controller
+</code></pre></li>
+<li><p>If below error pops Up</p>
+
+<p> rmed176lt@RMED176LT:~/ror/12-week/wiki_clone$ bundle exec rails generate rspec:install
+ Running via Spring preloader in process 10346
+ Could not find generator &lsquo;rspec:install&rsquo;. Maybe you meant &lsquo;devise:install&rsquo;, &lsquo;responders:install&rsquo; or &lsquo;simple_form:install&rsquo;
+ Run <code>rails generate --help</code> for more options.</p>
+
+<h2> Solution</h2>
+
+<p> <a href="https://stackoverflow.com/questions/39542169/rails-5-could-not-find-generator-rspecinstall/39542170">visit link for SO answer</a></p></li>
+<li><p>If below error pops up</p></li>
+</ol>
+
+
+<p>  1) ArticlesController redirect to user signin
+       Failure/Error: get :index</p>
+
+<pre><code>   NoMethodError:
+     undefined method `get' for #&lt;RSpec::ExampleGroups::ArticlesController:0xb8c4f8c&gt;
+     Did you mean?  gets
+                    gem
+   # ./spec/controllers/articles_controller_spec.rb:6:in `block (2 levels) in &lt;top (required)&gt;'
+</code></pre>
+
+<p>  Finished in 0.00479 seconds (files took 4.41 seconds to load)
+  1 example, 1 failure</p>
+
+<p>  Failed examples:</p>
+
+<p>  rspec ./spec/controllers/articles_controller_spec.rb:5 # ArticlesController redirect to user signin</p>
+
+<h2>  Solution</h2>
+
+<ol>
+<li>need to add require &lsquo;rspec/rails&rsquo; in spec_helper</li>
+<li>if wont work then add below line
+<code>
+config.infer_spec_type_from_file_location!
+</code>
+for me, 2 nd one is not required.</li>
+</ol>
+
+
+<h3>below is sample spec_helper.rb</h3>
+
+<script src="https://gist.github.com/anoobbava/27255d8052d7b8d5ac095f511e6e242b.js"></script>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Create a Blog With Octopress]]></title>
@@ -315,9 +500,6 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
     <content type="html"><![CDATA[<h2>Why Travis CI</h2>
 
 <p>Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a <em>DevOps</em>.</p>
-
-<!-- ![Image of Travis CI](images/travis_logo.png) -->
-
 
 <p><img src="/images/travis_logo.png" width="600" height="300"></p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Travis | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/travis/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2017-12-13T21:41:26+05:30</updated>
+  <updated>2018-02-27T18:42:41+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -21,9 +21,6 @@
     <content type="html"><![CDATA[<h2>Why Travis CI</h2>
 
 <p>Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a <em>DevOps</em>.</p>
-
-<!-- ![Image of Travis CI](images/travis_logo.png) -->
-
 
 <p><img src="/images/travis_logo.png" width="600" height="300"></p>
 
