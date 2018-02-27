@@ -10,7 +10,6 @@ categories: [Ruby, Rails, CI, Travis]
 
 Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a *DevOps*.
 
-<!-- ![Image of Travis CI](images/travis_logo.png) -->
 {% img /images/travis_logo.png 600 300 %}
 
 ## DevOps
