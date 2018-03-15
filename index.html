@@ -9,7 +9,7 @@
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="Rspec, A Brief Below is the some syntaxes and errors i have encountered when using rspec, I have shared here for every ones' use. install rspec &hellip;">
+  <meta name="description" content="Why this Gem Thanks to Ryan T, without his idea, it will be diffcult. Acts as votable is a gem deals with voting mechanisms, like and unlike things &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,145 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/">Implement Likes Rails With AJAX Using Acts as Votable Gem</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-03-15T12:24:19+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>15</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:24 pm</span></time>
+        
+           | <a href="/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/#disqus_thread"
+             data-disqus-identifier="http://anoobbava.github.io/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Why this Gem</h3>
+
+<p>  Thanks to Ryan T, without his idea, it will be diffcult. Acts as votable is a gem deals with voting mechanisms, like and unlike things etc, pretyy cool isn&rsquo;t it right.This blog is only a simple idea to use this gem, for more advanced ones you can go to the</p>
+
+<p>  <a href="https://github.com/ryanto/acts_as_votable">github link</a></p>
+
+<h3>Add Gem to Rails Project</h3>
+
+<p>  to fetch the latest version, <a href="https://rubygems.org/gems/acts_as_votable">rubygems acts as votable</a>
+  copy the gem and add to our project Gemfile</p>
+
+<p>  <img src="/images/acts_as_votable/1.png" width="400" height="200"></p>
+
+<p>  then run</p>
+
+<pre><code class="``">    bundle install
+</code></pre>
+
+<h3>create a migration for the  acts_as_votable</h3>
+
+<p>  In order to save the votes and its depanancies, needed a table, Thanks to Gem, they will create automatically when we run the migration, Run the command in the Terminal.</p>
+
+<pre><code class="``">  rails generate acts_as_votable:migration
+</code></pre>
+
+<pre><code class="``">    bundle exe rails db:migrate
+</code></pre>
+
+<h3>Use case in Project</h3>
+
+<p>  The Project here I have here is the blog project which contains the Article model and User model. The User able to like an article. By Using AJAX , there is no need to refresh the page. so in the Article model add</p>
+
+<pre><code class="``">    acts_as_votable
+</code></pre>
+
+<p>  <img src="/images/acts_as_votable/2.png" width="600" height="200"></p>
+
+<p>  Also add the voter to User model Also,</p>
+
+<pre><code class="``">    acts_as_voter
+</code></pre>
+
+<p>  <img src="/images/acts_as_votable/3.png" width="600" height="100"></p>
+
+<h3>ADD the Corresponding Action in the controller</h3>
+
+<p>  In order to work, we need to create an action in the controller, here in my case, there is ArticlesController, what we are doing is create a new action called like</p>
+
+<p>  <img src="/images/acts_as_votable/4.png" width="600" height="100"></p>
+
+<h2>  Will explain the codes here below</h2>
+
+<p>  since we are only implementing here, we need to add the table which user likes the article, for that , the built-in from gem is the &ldquo;upvote_from&rdquo;.
+  current_user is the devise_helper to fetch the logined user.
+  @article is an instance of the article page.</p>
+
+<h3>ADD the Routes</h3>
+
+<p>  Since the like is the custom action, what we need is the new routes in the article and it is a PUT Action.Also each like belongs to a single article, so we are implementing is the member action under the articles</p>
+
+<p>  <img src="/images/acts_as_votable/5.png" width="500" height="100"></p>
+
+<h3>Create a template corresponding to Like action</h3>
+
+<p>  We are using AJAX to update the count of likes, this will need a like.js.haml needed inside app/views/articles/</p>
+
+<p>  contents are</p>
+
+<p>  <img src="/images/acts_as_votable/6.png" width="600" height="100"></p>
+
+<p>  Right now, the code does not make any sense. since I am following HAML logic, a little bit different than ERB ones.
+  the #like-count is the div id, what we have used here is , after liking, we updated the count of likes to #like-count div.
+  get_upvotes.size is the helper to fetch the count of likes for the corresponding article.</p>
+
+<h3>Like button in the UI</h3>
+
+<p>  will check the routes is everything all okay,</p>
+
+<p>  <img src="/images/acts_as_votable/7.png" width="700" height="100"></p>
+
+<p>  Ahh!, All set, now add the route path in the page where like button needed, I have added a like.png image in assets to look like social media button. also a CSS class to reduce the image size, if you needed add that or just discard that.</p>
+
+<p>  <img src="/images/acts_as_votable/8.png" width="700" height="100"></p>
+
+<h3>ADD the Div id to update the count of like</h3>
+
+<p>  We have mentioned and id = #like-count in the lik.js.haml, need to add that in any place we can show the count of like. In my example, i have a glyphicon to show that before that i added it like below.</p>
+
+<p>  <img src="/images/acts_as_votable/9.png" width="700" height="100"></p>
+
+<h2>  Will Explain the codes below</h2>
+
+<p>  when the page intially loaded acts_votable gem called &ldquo;get_upvotes&rdquo; will fetch all the likes and show in the page, after that, if any likee from user, then the system Will AJAX and there by calling the like.js.haml and update the new count via AJAX.</p>
+
+<p>  All completed, now the output, will show you, like button</p>
+
+<p>  <img src="/images/acts_as_votable/10.png" width="200" height="100"></p>
+
+<p>  like count image</p>
+
+<p>  <img src="/images/acts_as_votable/11.png" width="300" height="100"></p>
+
+<p>   Note: the count shows as 2 because, I liked 2 times from 2 different accounts, actually there will like only one like per account per article, the gem is intellegent as it is ,again Thanks to Ryan T for this,
+   If you have show stoppers, please check the code in</p>
+
+<p>  <a href="https://github.com/anoobbava/wiki_clone_app">github</a></p>
+
+<p>  thanks Guys.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -865,6 +1004,10 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/">Implement Likes Rails With AJAX Using Acts as Votable Gem</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/02/27/implement-rspec-in-ror-project/">Implement Rspec in ROR Project</a>
