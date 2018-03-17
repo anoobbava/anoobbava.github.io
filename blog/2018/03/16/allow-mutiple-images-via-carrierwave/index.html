@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Introduction to Circle CI - Awesome Web Blog</title>
+  <title>Allow Mutiple Images via Carrierwave - Awesome Web Blog</title>
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="Intro &amp;&amp; Setup Project CircleCI helps you ship better code, faster. To kick things off, you&rsquo;ll need to add a config.yml file to your &hellip;">
+  <meta name="description" content="Gem intro In this tutoial, we are using the carrierwave gem.The aim of this tutorial is to upload multiple images for web Applications gem ' &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/">
+  <link rel="canonical" href="http://anoobbava.github.io/blog/2018/03/16/allow-mutiple-images-via-carrierwave/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Awesome Web Blog" type="application/atom+xml">
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Introduction to Circle CI</h1>
+      <h1 class="entry-title">Allow Mutiple Images via Carrierwave</h1>
     
     
       <p class="meta">
@@ -88,7 +88,7 @@
 
 
 
-<time class='entry-date' datetime='2017-10-24T20:06:55+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>8:06 pm</span></time>
+<time class='entry-date' datetime='2018-03-16T12:59:43+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:59 pm</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://anoobbava.github.io">Comments</a>
@@ -98,53 +98,163 @@
   </header>
 
 
-<div class="entry-content"><h2>Intro &amp;&amp; Setup Project</h2>
+<div class="entry-content"><h3>Gem intro</h3>
 
-<p>CircleCI helps you ship better code, faster. To kick things off, you&rsquo;ll need to add a config.yml file to your project, and start building. After that, we&rsquo;ll start a new build for you each time make a PR. Similar to travis; here also needed a yml file for configs and update.</p>
+<p>  In this tutoial, we are using the carrierwave gem.The aim of this tutorial is to upload multiple images for web Applications</p>
 
-<h2>Steps</h2>
+<pre><code class="``">    gem 'carrierwave', '~&gt; 1.2', '&gt;= 1.2.2'
+</code></pre>
 
-<p>1.Signup using github</p>
+<p>  We are using this version, Add this gem to your Gemfile and do the</p>
 
-<p><img src="/images/circleci/intro.png" width="800" height="300"></p>
+<pre><code class="``">    bundle install
+</code></pre>
+
+<h3>Generate the Uploader File</h3>
+
+<p>  In order carrierwave to work, need an uploader Class. Which will be generated using the command</p>
+
+<pre><code class="``">    rails generate uploader image
+</code></pre>
+
+<p>  Instead of image  u can give avatar or anything.As s result of the above command  a file generated called ImageUploader.rb in app/uploaders/</p>
+
+<h3>Usecase of Carrierwave</h3>
+
+<p>  I have an Article model, and I need to upload mutliple images of the single Article. To do that, we need to generate the following</p>
 
 <ol>
-<li>Add our Project</li>
+<li>ArticleAttachment Model: To save the mutliple images for the single article and article_id to denotes the images are under that article</li>
+<li>Necessory updations in the model Files</li>
+<li>Update the controller to accept multiple images</li>
+<li>Need to accept mutiple images from user</li>
+<li>show the images to user after the article creation a success!!</li>
 </ol>
 
 
-<p><img src="/images/circleci/add_project.png" width="800" height="300"></p>
+<h3>Generate the ArticleAttachment Model</h3>
+
+<p>  To generate the model run the below command with 2 columns</p>
 
 <ol>
-<li><p>Create a folder named .circleci and add a fileconfig.yml (so that the filepath in .circleci/config.yml).</p></li>
-<li><p>Populate the config.yml with the contents of the below file.</p></li>
+<li>article_id :integer</li>
+<li>image :string</li>
 </ol>
 
 
-<script src="https://gist.github.com/anoobbava/2c9417987a3e67210395119aa5083c48.js"></script>
+<pre><code class="``">    rails g model ArticleAttachment article_id:integer image:string
+</code></pre>
 
+<p>  run</p>
+
+<pre><code class="``">    bundle exec rails db:migrate
+</code></pre>
+
+<h3>changes in the Models</h3>
+
+<p>  in the Article Model, need to chnage on below,</p>
+
+<pre><code class="``">    has_many :article_attachments
+    accepts_nested_attributes_for :article_attachments
+</code></pre>
+
+<p>  <img src="/images/carrierwave/1.png" width="600" height="100"></p>
+
+<p>  in the PostAttachment model</p>
+
+<pre><code class="``">    mount_uploader :image, ImageUploader
+    belongs_to :article
+</code></pre>
+
+<p>  <img src="/images/carrierwave/2.png" width="600" height="100"></p>
+
+<h3>Changes to controllers</h3>
+
+<p>  Need to change the controllers in below places</p>
 
 <ol>
-<li><p>Update the config.yml to reflect your project&rsquo;s configuration.</p></li>
-<li><p>Push this change to GitHub.</p></li>
-<li><p>Start building! This will launch your project on Circle CI , now it will analyse the code and check the system for PR.all done, system will automatically test when make our PR.</p></li>
+<li>new Action</li>
+<li>show action</li>
+<li>create action</li>
+<li>parameters passing</li>
 </ol>
 
 
-<p><img src="/images/circleci/circle_Pr.png" width="800" height="300"></p>
+<h4>New Action</h4>
 
-<p>Awesome, we got our error on build we can see what is the error.</p>
+<p>  Need to build an instance variable to accept the article_attachments</p>
 
-<p><img src="/images/circleci/circle_error_pr.png" width="800" height="300"></p>
+<pre><code class="``">    @article_attachment = @article.article_attachments.build
+</code></pre>
 
-<p>The issue is we have mentioned is ruby in gem file as 2.3.1 but in the config of circle is 2.4.1. we will update it as another commit.</p>
+<p>  <img src="/images/carrierwave/3.png" width="600" height="100"></p>
 
-<p>I Found it, circle CI using docker images pre-built ones, Here we are using the ruby version 2.3.1 in Gemfile and the config.yml added 2.4.1. Going the below url
-<a href="https://circleci.com/docs/2.0/circleci-images/#ruby">go to circle docs info</a>
-- most matched version is 2.3; now we are commiting using that code. All work fine.Now we select the image,
-We can select linux, IOS, or custom host in circle CI, For this tutorial I have used the linux plan, hobbyist one. We can use containers.</p>
+<h4>Show action</h4>
 
-<p><img src="/images/circleci/circle_all_test_passed.png" width="800" height="300"></p>
+<p>  To fetch all the images belongs to an article</p>
+
+<pre><code class="``">    @article_attachments = @article.article_attachments.all
+</code></pre>
+
+<p>  &ldquo;@article&rdquo; will be set using fetch_article method</p>
+
+<pre><code class="``">    def fetch_article
+      @article = Article.find_by(id: params[:id])
+    end
+</code></pre>
+
+<h4>Create Action</h4>
+
+<p>  Need to save the data fetched from user</p>
+
+<pre><code class="``">    if @article.save
+      params[:article_attachments]['image'].each do |a|
+        @article.article_attachments.create!(image: a, article_id: @article.id)
+      end
+      flash[:notice] = 'Article Created'
+      redirect_to @article
+    else
+      render 'new'
+    end
+</code></pre>
+
+<h4>Params Passing</h4>
+
+<pre><code class="``">    def article_params
+      params.require(:article).permit(:title, :content, :category_id,
+                                    article_attachments_attributes: [:id, :article_id, :image])
+    end
+</code></pre>
+
+<p>  Need to add the parameters to allow in to the system.</p>
+
+<h3>Accept image from user</h3>
+
+<p>  We have updated the controller code, now in the View, in order to accept image from the user perspective need to update the form with below</p>
+
+<pre><code class="``">    = f.fields_for :article_attachments do |p|
+        = p.label :image
+        = p.file_field :image, :multiple =&gt; true, name: "article_attachments[image][]"
+</code></pre>
+
+<p>  Full pciture of the form will be like below,</p>
+
+<p>  <img src="/images/carrierwave/4.png" width="700" height="100"></p>
+
+<p>  Now what will happens is that in the create action, will get params with article_attachments and inside that &ldquo;image&rdquo; hash will have the images selected from user to be ready to be saved to the dB.</p>
+
+<h3>Show the output</h3>
+
+<p>  Now we need to show the images after successful creation of an article. To do  that, we have updated all the images belongs to the particular to this &ldquo;@article_attachments&rdquo; varaiable. What we need is just iterate and print the values.</p>
+
+<pre><code class="``">    - @article_attachments.each do |image|
+            .post-image
+              = image_tag(image.image_url.to_s)
+</code></pre>
+
+<p>thats all done, Now check it is working ,please post if any doubts or bugs encountered.</p>
+
+<p>checkout my <a href="wwww.github.com/anoobbava/blog_app">code</a></p>
 </div>
 
 
@@ -160,12 +270,12 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
 
 
 
-<time class='entry-date' datetime='2017-10-24T20:06:55+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>8:06 pm</span></time>
+<time class='entry-date' datetime='2018-03-16T12:59:43+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>16</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:59 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ci/'>ci</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/ruby-gem/'>ruby gem</a>
   
 </span>
 
@@ -174,7 +284,7 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2018/03/16/allow-mutiple-images-via-carrierwave/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2018/03/16/allow-mutiple-images-via-carrierwave/" >Tweet</a>
   
   
   
@@ -185,10 +295,8 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2017/10/17/continous-integration-using-travis/" title="Previous Post: Continous Integration using Travis CI">&laquo; Continous Integration using Travis CI</a>
+        <a class="basic-alignment left" href="/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/" title="Previous Post: Implement Likes rails With AJAX using Acts as votable Gem">&laquo; Implement Likes rails With AJAX using Acts as votable Gem</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2017/11/14/create-a-blogging-site-using-octopress-and-github/" title="Next Post: Create a Blog with Octopress">Create a Blog with Octopress &raquo;</a>
       
     </p>
   </footer>
@@ -292,8 +400,8 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/';
-        var disqus_url = 'http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/';
+        var disqus_identifier = 'http://anoobbava.github.io/blog/2018/03/16/allow-mutiple-images-via-carrierwave/';
+        var disqus_url = 'http://anoobbava.github.io/blog/2018/03/16/allow-mutiple-images-via-carrierwave/';
         var disqus_script = 'embed.js';
       
     (function () {

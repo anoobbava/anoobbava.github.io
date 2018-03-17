@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://anoobbava.github.io/blog/2018/03/16/allow-mutiple-images-via-carrierwave/</loc>
+<lastmod>2018-03-16T12:59:43+05:30</lastmod>
+</url>
+<url>
 <loc>http://anoobbava.github.io/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/</loc>
 <lastmod>2018-03-15T12:24:19+05:30</lastmod>
 </url>
@@ -46,5 +50,8 @@
 </url>
 <url>
 <loc>http://anoobbava.github.io/blog/categories/ajax/</loc>
+</url>
+<url>
+<loc>http://anoobbava.github.io/blog/categories/ruby-gem/</loc>
 </url>
 </urlset>
