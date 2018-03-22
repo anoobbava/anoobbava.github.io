@@ -4,7 +4,7 @@
   <title><![CDATA[Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-03-17T20:29:33+05:30</updated>
+  <updated>2018-03-22T20:44:14+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,109 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Create Custom Error Pages in Rails]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/03/22/create-custom-error-pages-in-rails/"/>
+    <updated>2018-03-22T19:54:55+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/03/22/create-custom-error-pages-in-rails</id>
+    <content type="html"><![CDATA[<p><img src="http://anoobbava.github.io/images/custom_error/rails_error_page.png" width="600" height="100"></p>
+
+<p>We All know what this error page means, it is the 500 error when the internal Server issue. The problem of this issue on the server level like server Time out out or Internal issue or anything.It is not user friendly, it is the custom error page from the rails itself.</p>
+
+<h3>Where is the Error Page ??</h3>
+
+<p>  For every Rails Project, the Page is inside  public/ folders, the files are</p>
+
+<ol>
+<li>404.html</li>
+<li>422.html</li>
+<li>500.html</li>
+</ol>
+
+
+<p>  this is the source of this error UI.
+  We can follow 2 approaches</p>
+
+<ol>
+<li>simple one</li>
+<li>coding approach</li>
+</ol>
+
+
+<h3>Simple one</h3>
+
+<p>  update the files with custom html and files, so the file loaded will be based on the new custom template.
+  To test this, suppose your server is running on &ldquo;localhost:3000&rdquo; server, we can just type</p>
+
+<pre><code class="`">    localhost:3000/500 or localhost:3000/404 or localhost:3000/422
+</code></pre>
+
+<p>  if it s not working, go to the &ldquo;config/environments/development.rb&rdquo; and make the line to &ldquo;false&rdquo;</p>
+
+<pre><code class="``">      config.consider_all_requests_local = false
+</code></pre>
+
+<h3>Coding Approach</h3>
+
+<p>  We can divide this approach to 5 parts</p>
+
+<ol>
+<li>update in the Application.rb</li>
+<li>Remove the public static files</li>
+<li>Add the routes</li>
+<li>Create a new controller</li>
+<li>create the views</li>
+</ol>
+
+
+<h4>Update in the application.rb File</h4>
+
+<pre><code class="``">    config.exceptions_app = self.routes
+</code></pre>
+
+<h4>Remove the static files</h4>
+
+<p>  All the depandant files like 404.html, 422.html, 500.html. Delete all these files</p>
+
+<h4>Add the routes</h4>
+
+<pre><code class="``">    get '/404', to: "errors#not_found"
+    get '/422', to: "errors#unacceptable"
+    get '/500', to: "errors#internal_error"
+</code></pre>
+
+<p>  this deontes the controllers and its action.</p>
+
+<h4>Create the controller</h4>
+
+<p>  We need to create a new controller to make this logic works that is using a contoller &ldquo;ErrorsController&rdquo;</p>
+
+<p>  Add the action corresponding to that also,</p>
+
+<p>  <script src="https://gist.github.com/anoobbava/9ed5b57e3d8bb75c77715a7057cd86b7.js"></script></p>
+
+<pre><code class="``">    skip_before_action :authenticate_user!
+</code></pre>
+
+<p>  that code is to bypass devise, or else need to login to view the errors.</p>
+
+<h4>Create the views</h4>
+
+<p>  create the views for the errors, so create folder named errors in app/views/</p>
+
+<pre><code class="``">    not_found.haml
+    unacceptable.haml
+    internal_error.haml
+</code></pre>
+
+<p>  All done, you can write custom html into that, will give you a sample to work with.</p>
+
+<p>  <script src="https://gist.github.com/anoobbava/f028100c28d95fd664bbf59195f26b8b.js"></script></p>
+
+<p>  it is copied from some page, I am not sure about the site, will mention thanks.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Allow Mutiple Images via Carrierwave]]></title>
