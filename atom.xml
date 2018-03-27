@@ -4,7 +4,7 @@
   <title><![CDATA[Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-03-22T20:44:14+05:30</updated>
+  <updated>2018-03-27T21:11:53+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,85 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Automatically Run the Migrations in Heroku]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/03/27/automatically-run-the-migrations-in-heroku/"/>
+    <updated>2018-03-27T20:26:59+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/03/27/automatically-run-the-migrations-in-heroku</id>
+    <content type="html"><![CDATA[<p>We all know that Heroku Running on the PAAS(Platform As Service) architecture. It is free for starter applications or hobby projects. For a normal projects, deplolyment phase consists of below steps</p>
+
+<ol>
+<li>select service</li>
+<li>install OS</li>
+<li>install Ruby</li>
+<li>install Rails</li>
+<li>Install dB</li>
+<li>Install AppServer</li>
+<li>configure All</li>
+</ol>
+
+
+<p>trust me, it is not a simple task, I have tried it and it is always in pain when setup. Takes deep knowledge to master in deployment. But for heroku is so cool and no worries, But here we have not discussing that,we are facing and issue with migration and this migration need to run every time after the code is deployed.</p>
+
+<p>We need to run the below code every time after &ldquo;git push heroku master&rdquo;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  reroku rake db:migrate</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/run-migration/1.png" width="800" height="300"></p>
+
+<h2>Solution</h2>
+
+<p>thanks to Heroku, they created something called <strong>release</strong>, which will be like a after_update callback to call this process. for that need to add some code to the Procfile</p>
+
+<h3>what is a Procfile</h3>
+
+<p>  As copied from heroku doc
+  ```</p>
+
+<blockquote><p>A Procfile is a mechanism for declaring what commands are run by your application’s dynos on the Heroku platform. It follows the process model. You can use a Procfile to declare various process types, such as your web server, multiple types of workers, a singleton process like a clock, or the tasks you would like to run before a new release is deployed to production.
+Every dyno in your application will belong to one of the process types, and will begin executing by running the command associated with that process type.</p></blockquote>
+
+<p> create a file called <strong>Procfile</strong> in the Application root path, ensure no extensions and nothing more in the file</p>
+
+<p> Add the below code in to that file,</p>
+
+<pre><code class="`">    release: rake db:migrate
+</code></pre>
+
+<p>hooray. all done, now do work, system will automatically check the migration files and executes them.</p>
+
+<p><img src="http://anoobbava.github.io/images/run-migration/2.png" width="1000" height="300"></p>
+
+<h3>Note</h3>
+
+<p>this process explained on the assumption that, you know the deployment of heroku and enable automatic deployment using github also.</p>
+
+<h4>Automatic Deployment using Github</h4>
+
+<p>Heroku provides a service to deploy the code to production once we commited in a specific branch. For me, <strong>release</strong> is the deployment branch. Need to a simple step to do that</p>
+
+<ol>
+<li>choose the <strong>Deployment method</strong> and connect to <strong>Github</strong></li>
+</ol>
+
+
+<p><img src="http://anoobbava.github.io/images/run-migration/3.png" width="800" height="300"></p>
+
+<ol>
+<li>in the <strong>Automatic deploys</strong> section select your branch,</li>
+</ol>
+
+
+<p><img src="http://anoobbava.github.io/images/run-migration/4.png" width="800" height="300"></p>
+
+<p>I have configured the test suit by Travis CI, thats why checked the option <strong>Wait for CI to pass before deploy</strong></p>
+
+<p>all set. thanks guys, comment if any error or doubt happend</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Create Custom Error Pages in Rails]]></title>

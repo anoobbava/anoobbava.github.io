@@ -9,7 +9,7 @@
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="We All know what this error page means, it is the 500 error when the internal Server issue. The problem of this issue on the server level like &hellip;">
+  <meta name="description" content="We all know that Heroku Running on the PAAS(Platform As Service) architecture. It is free for starter applications or hobby projects. For a normal &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,108 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/03/27/automatically-run-the-migrations-in-heroku/">Automatically Run the Migrations in Heroku</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-03-27T20:26:59+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>8:26 pm</span></time>
+        
+           | <a href="/blog/2018/03/27/automatically-run-the-migrations-in-heroku/#disqus_thread"
+             data-disqus-identifier="http://anoobbava.github.io/blog/2018/03/27/automatically-run-the-migrations-in-heroku/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>We all know that Heroku Running on the PAAS(Platform As Service) architecture. It is free for starter applications or hobby projects. For a normal projects, deplolyment phase consists of below steps</p>
+
+<ol>
+<li>select service</li>
+<li>install OS</li>
+<li>install Ruby</li>
+<li>install Rails</li>
+<li>Install dB</li>
+<li>Install AppServer</li>
+<li>configure All</li>
+</ol>
+
+
+<p>trust me, it is not a simple task, I have tried it and it is always in pain when setup. Takes deep knowledge to master in deployment. But for heroku is so cool and no worries, But here we have not discussing that,we are facing and issue with migration and this migration need to run every time after the code is deployed.</p>
+
+<p>We need to run the below code every time after &ldquo;git push heroku master&rdquo;</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  reroku rake db:migrate</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/run-migration/1.png" width="800" height="300"></p>
+
+<h2>Solution</h2>
+
+<p>thanks to Heroku, they created something called <strong>release</strong>, which will be like a after_update callback to call this process. for that need to add some code to the Procfile</p>
+
+<h3>what is a Procfile</h3>
+
+<p>  As copied from heroku doc
+  ```</p>
+
+<blockquote><p>A Procfile is a mechanism for declaring what commands are run by your application’s dynos on the Heroku platform. It follows the process model. You can use a Procfile to declare various process types, such as your web server, multiple types of workers, a singleton process like a clock, or the tasks you would like to run before a new release is deployed to production.
+Every dyno in your application will belong to one of the process types, and will begin executing by running the command associated with that process type.</p></blockquote>
+
+<p> create a file called <strong>Procfile</strong> in the Application root path, ensure no extensions and nothing more in the file</p>
+
+<p> Add the below code in to that file,</p>
+
+<pre><code class="`">    release: rake db:migrate
+</code></pre>
+
+<p>hooray. all done, now do work, system will automatically check the migration files and executes them.</p>
+
+<p><img src="/images/run-migration/2.png" width="1000" height="300"></p>
+
+<h3>Note</h3>
+
+<p>this process explained on the assumption that, you know the deployment of heroku and enable automatic deployment using github also.</p>
+
+<h4>Automatic Deployment using Github</h4>
+
+<p>Heroku provides a service to deploy the code to production once we commited in a specific branch. For me, <strong>release</strong> is the deployment branch. Need to a simple step to do that</p>
+
+<ol>
+<li>choose the <strong>Deployment method</strong> and connect to <strong>Github</strong></li>
+</ol>
+
+
+<p><img src="/images/run-migration/3.png" width="800" height="300"></p>
+
+<ol>
+<li>in the <strong>Automatic deploys</strong> section select your branch,</li>
+</ol>
+
+
+<p><img src="/images/run-migration/4.png" width="800" height="300"></p>
+
+<p>I have configured the test suit by Travis CI, thats why checked the option <strong>Wait for CI to pass before deploy</strong></p>
+
+<p>all set. thanks guys, comment if any error or doubt happend</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1320,6 +1422,10 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/03/27/automatically-run-the-migrations-in-heroku/">Automatically Run the Migrations in Heroku</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/03/22/create-custom-error-pages-in-rails/">Create Custom Error Pages in Rails</a>
       </li>
     
@@ -1333,10 +1439,6 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
     
       <li class="post">
         <a href="/blog/2018/02/27/implement-rspec-in-ror-project/">Implement Rspec in ROR Project</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/11/14/create-a-blogging-site-using-octopress-and-github/">Create a Blog With Octopress</a>
       </li>
     
   </ul>

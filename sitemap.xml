@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://anoobbava.github.io/blog/2018/03/27/automatically-run-the-migrations-in-heroku/</loc>
+<lastmod>2018-03-27T20:26:59+05:30</lastmod>
+</url>
+<url>
 <loc>http://anoobbava.github.io/blog/2018/03/22/create-custom-error-pages-in-rails/</loc>
 <lastmod>2018-03-22T19:54:55+05:30</lastmod>
 </url>
