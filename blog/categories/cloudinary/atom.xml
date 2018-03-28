@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Cloudinary | Awesome Web Blog]]></title>
+  <link href="http://anoobbava.github.io/blog/categories/cloudinary/atom.xml" rel="self"/>
+  <link href="http://anoobbava.github.io/"/>
+  <updated>2018-03-28T12:54:54+05:30</updated>
+  <id>http://anoobbava.github.io/</id>
+  <author>
+    <name><![CDATA[Anoob Bava]]></name>
+    <email><![CDATA[anoob.bava@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Upload Images Using Cloudinary in Heroku]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/"/>
+    <updated>2018-03-28T11:43:11+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/03/28/upload-images-using-cloudinary-in-heroku</id>
+    <content type="html"><![CDATA[<h2>Intro</h2>
+
+<p>  <img src="/images/cloudinary/1.png" width="600" height="200"></p>
+
+<p>  As discussed in the previous blogs, heroku is an awesome tool to deploy our application within minutes and no hassles. The issue is with the heroku is, for each specific applications ,need to use the add-ons. some are free and others are paid version. But to use add-on like cloudinary need to provide the credit card info, Here we are explaining how to bypass this issue</p>
+
+<h2>Cloudinary</h2>
+
+<p>  <img src="/images/cloudinary/2.png" width="700" height="300"></p>
+
+<p>Cloudinary, as the name indicates it is a cloud space to save the images and videos. Can be used for both the web and mobile platform. Also the cloudinary provides a cool space as free tier(10GB something and 300000 photos). when We tweet about them, they provides an additional 1GB Also, Awesome right and thanks to cloudinary too.</p>
+
+<h2>Implementation</h2>
+
+<ol>
+<li><p>signup with <a href="https://cloudinary.com/">Cloudinary</a></p></li>
+<li><p>generate the custom cloudinary.yml via cloudinary console</p></li>
+<li><p>copy to the project path</p></li>
+<li><p>update the upoader File</p></li>
+<li><p>Update in Herkou with ENV Variable.</p></li>
+<li><p>deploy the code to heroku</p></li>
+</ol>
+
+
+<h3>Signup with Cloudinary</h3>
+
+<p>Create an account with <a href="https://cloudinary.com/">Cloudinary</a> using email and password.</p>
+
+<p><img src="/images/cloudinary/3.png" width="900" height="300"></p>
+
+<h3>Cloudinary.yml</h3>
+
+<p>If you have not seen the cloudinary.yml, dont worry, will paste my cloudinary.yml file below, Please chnage the details from the dashboard.</p>
+
+<p>below is the dashboard, copy this details and replace these details to the yml file.</p>
+
+<p><img src="/images/cloudinary/4.png" width="900" height="300"></p>
+
+<p>  <script src="https://gist.github.com/anoobbava/c7fd8141c0ace8ddfac514dc145a2c3e.js"></script></p>
+
+<h3>copy to the project path</h3>
+
+<p>include this file in <strong>application_root/config/</strong></p>
+
+<h4>update the upoader File</h4>
+
+<p> in the Uploader.rb file(ImageUploader.rb or AvatarUploader.rb) change the following,</p>
+
+<p>comment below codes</p>
+
+<pre><code># storage :file
+
+# def store_dir
+  #   "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  # end
+</code></pre>
+
+<h3>Update in Herkou with ENV Variable</h3>
+
+<p>Login in <strong>herkou</strong> dashboard and take our application and add environment variable.</p>
+
+<p><img src="/images/cloudinary/5.png" width="800" height="300"></p>
+
+<pre><code>  CLOUDINARY_URL
+</code></pre>
+
+<h3>deploy the code to heroku</h3>
+
+<p>no worries, no need to change the code in the image_tag and upload tags, for me it is all working fine</p>
+
+<p>you check in my site for the output <strong>blog-app-bava.herokuapp.com</strong></p>
+
+<p>code will be available in <a href="https://github.com/anoobbava/blog_app">github</a></p>
+
+<p>all set. thanks guys, comment if any error or doubt happend</p>
+]]></content>
+  </entry>
+  
+</feed>
