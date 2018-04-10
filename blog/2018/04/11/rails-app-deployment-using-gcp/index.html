@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Upload Images Using Cloudinary in Heroku - Awesome Web Blog</title>
+  <title>Rails App Deployment Using GCP:Series 1 - Awesome Web Blog</title>
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="Intro As discussed in the previous blogs, heroku is an awesome tool to deploy our application within minutes and no hassles. The issue is with the &hellip;">
+  <meta name="description" content="Deployment using GCP This will be a series of tutorials in which step by step deployment of a ROR project in Google Cloud or GCP. From here onwards &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://anoobbava.github.io/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/">
+  <link rel="canonical" href="http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Awesome Web Blog" type="application/atom+xml">
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Upload Images Using Cloudinary in Heroku</h1>
+      <h1 class="entry-title">Rails App Deployment Using GCP:Series 1</h1>
     
     
       <p class="meta">
@@ -88,7 +88,7 @@
 
 
 
-<time class='entry-date' datetime='2018-03-28T11:43:11+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>11:43 am</span></time>
+<time class='entry-date' datetime='2018-04-11T00:32:23+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:32 am</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://anoobbava.github.io">Comments</a>
@@ -98,87 +98,147 @@
   </header>
 
 
-<div class="entry-content"><h2>Intro</h2>
+<div class="entry-content"><h2>Deployment using GCP</h2>
 
-<p>  <img src="/images/cloudinary/1.png" width="600" height="200"></p>
+<p><img src="/images/gcp-1/0.png" width="800" height="300"></p>
 
-<p>  As discussed in the previous blogs, heroku is an awesome tool to deploy our application within minutes and no hassles. The issue is with the heroku is, for each specific applications ,need to use the add-ons. some are free and others are paid version. But to use add-on like cloudinary need to provide the credit card info, Here we are explaining how to bypass this issue</p>
+<p>This will be a series of tutorials in which step by step deployment of a ROR project in Google Cloud or GCP. From here onwards it is mentioned as GCP.</p>
 
-<h2>Cloudinary</h2>
+<h2>Why GCP</h2>
 
-<p>  <img src="/images/cloudinary/2.png" width="700" height="300"></p>
+<p>I am a huge Fan of Open Source Technologies, I have used the Heroku Free Tier, RedHat,Engine Yard Also. I have been tried to use the AWS for a long time. The issue with AWS is that it has free tier but needed credit card to sign-up.Also In the case of heroku, is a PAAS Application and all the process are automated and customisation is less.</p>
 
-<p>Cloudinary, as the name indicates it is a cloud space to save the images and videos. Can be used for both the web and mobile platform. Also the cloudinary provides a cool space as free tier(10GB something and 300000 photos). when We tweet about them, they provides an additional 1GB Also, Awesome right and thanks to cloudinary too.</p>
-
-<h2>Implementation</h2>
+<h4>Pros of GCP</h4>
 
 <ol>
-<li><p>signup with <a href="https://cloudinary.com/">Cloudinary</a></p></li>
-<li><p>generate the custom cloudinary.yml via cloudinary console</p></li>
-<li><p>copy to the project path</p></li>
-<li><p>update the upoader File</p></li>
-<li><p>Update in Herkou with ENV Variable.</p></li>
-<li><p>deploy the code to heroku</p></li>
+<li>comes from Google , oh! Yaaah</li>
+<li>No need of credit Card</li>
+<li>Need only debit card with VISA or MASTER CARD.</li>
+<li>gives us the $300 credit once signup.</li>
+<li>$300 credit for 12 months</li>
 </ol>
 
 
-<h3>Signup with Cloudinary</h3>
+<p><code>Google Cloud Platform, offered by Google, is a suite of cloud computing services that runs on the same infrastructure that Google uses internally for its end-user products, such as Google Search and YouTube.</code></p>
 
-<p>Create an account with <a href="https://cloudinary.com/">Cloudinary</a> using email and password.</p>
+<p>We have explained here is the basic use case to deploy the app, for more details, please refer the official guide.</p>
 
-<p><img src="/images/cloudinary/3.png" width="900" height="300"></p>
+<h3>signup</h3>
 
-<h3>Cloudinary.yml</h3>
+<ol>
+<li>go to <a href="http://www.cloud.google.com/">got to GCP</a></li>
+<li>signup with your email</li>
+<li>add the payment details; dont worry, only debit Card needed, they is no harm because of this, they dont take amount from account unless you have to upgrade the account.</li>
+</ol>
 
-<p>If you have not seen the cloudinary.yml, dont worry, will paste my cloudinary.yml file below, Please chnage the details from the dashboard.</p>
 
-<p>below is the dashboard, copy this details and replace these details to the yml file.</p>
+<p>Note:
+  I have used ICICI Debit Account, and they deducted 50Rs from my account to verify and returned the amount. So No Worries, only i got is a 2 rs for MY OTP.</p>
 
-<p><img src="/images/cloudinary/4.png" width="900" height="300"></p>
+<p><img src="/images/gcp-1/0_1.png" width="300" height="600"></p>
 
-<p>  <script src="https://gist.github.com/anoobbava/c7fd8141c0ace8ddfac514dc145a2c3e.js"></script></p>
+<h3>Create a Project</h3>
 
-<h3>copy to the project path</h3>
+<p>Now, create a Project.</p>
 
-<p>include this file in <strong>application_root/config/</strong></p>
+<p><img src="/images/gcp-1/1.png" width="800" height="300"></p>
 
-<h4>update the upoader File</h4>
+<p>give a name for the project</p>
 
-<p> in the Uploader.rb file(ImageUploader.rb or AvatarUploader.rb) change the following,</p>
+<p><img src="/images/gcp-1/2.png" width="800" height="400"></p>
 
-<p>comment below codes</p>
+<h3>Create an instance</h3>
+
+<p>Now the process is create the instance. Instance is something like a virtual machine. This can be fetched from the Compute Engine. Example instances are production, staging etc.</p>
+
+<p><img src="/images/gcp-1/3.png" width="800" height="400"></p>
+
+<p>Now, add some details to complete the instance creation.</p>
+
+<p><img src="/images/gcp-1/4.png" width="800" height="400"></p>
+
+<p>I have used is the ubuntu 16.04, you can choose your BootDisk.</p>
+
+<p>Now, important part, need to link the SSH Key to the GCP.</p>
+
+<p><img src="/images/gcp-1/5.png" width="800" height="400"></p>
+
+<p>click on the create instance</p>
+
+<h3>Link SSH to GCP</h3>
+
+<p>go to the metadata and click on the SSH keys and ADD,then paste the public key to there.</p>
+
+<p><img src="/images/gcp-1/13.png" width="800" height="400"></p>
+
+<p>In order to do that, need to copy the public key</p>
+
+<ol>
+<li>Show the available SSH keys</li>
+</ol>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># storage :file
-</span><span class='line'>
-</span><span class='line'># def store_dir
-</span><span class='line'>  #   "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-</span><span class='line'>  # end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -al ~/.ssh</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Update in Herkou with ENV Variable</h3>
+<p><img src="/images/gcp-1/6.png" width="800" height="400"></p>
 
-<p>Login in <strong>herkou</strong> dashboard and take our application and add environment variable.</p>
+<ol>
+<li>copy the desired public key</li>
+</ol>
 
-<p><img src="/images/cloudinary/5.png" width="800" height="300"></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  CLOUDINARY_URL</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>head ~/.ssh/id_rsa.pub</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>deploy the code to heroku</h3>
+<p><img src="/images/gcp-1/7.png" width="800" height="400"></p>
 
-<p>no worries, no need to change the code in the image_tag and upload tags, for me it is all working fine</p>
+<ol>
+<li>Add the public Key to the GCP</li>
+</ol>
 
-<p>you check in my site for the output <strong>blog-app-bava.herokuapp.com</strong></p>
 
-<p>code will be available in <a href="https://github.com/anoobbava/blog_app">github</a></p>
+<p><img src="/images/gcp-1/8.png" width="800" height="400"></p>
 
-<p>all set. thanks guys, comment if any error or doubt happend</p>
+<h3>Create a Pem File</h3>
+
+<p>because of security concerns and multiple connectivity of instances, We need to generate the pem file from the public key, this is achieved by using.</p>
+
+<p>open a new terminal and run the below code.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -f ~/.ssh/id_rsa.pub -m 'PEM' -e > public.pem</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp-1/9.png" width="100" height="50"></p>
+
+<p>Now the code will generate the pem file in the place of terminal points to , in my case it is home path</p>
+
+<p>Now change the permission of the pem file, by below comand</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 600 public.pem</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>connect the GCP using SSH</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -i public.pem user_name@external_ip</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp-1/14.png" width="800" height="300"></p>
+
+<p>user_name is the name which is shown when we copy the ssh key, here irfana_anoob is the user_name</p>
+
+<p>external-ip is the IP which is given when we create the instance</p>
+
+<p><img src="/images/gcp-1/15.png" width="800" height="300"></p>
+
+<p>this is the Series1, will be posting more posts on this Also.</p>
+
+<p>all set. thanks guys, comment if any error or doubt happend.</p>
 </div>
 
 
@@ -194,12 +254,12 @@
 
 
 
-<time class='entry-date' datetime='2018-03-28T11:43:11+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>11:43 am</span></time>
+<time class='entry-date' datetime='2018-04-11T00:32:23+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:32 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cloudinary/'>cloudinary</a>, <a class='category' href='/blog/categories/herkou/'>herkou</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/deployment/'>deployment</a>, <a class='category' href='/blog/categories/gcloud/'>gcloud</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
   
 </span>
 
@@ -208,7 +268,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp/" >Tweet</a>
   
   
   
@@ -219,10 +279,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2018/03/27/automatically-run-the-migrations-in-heroku/" title="Previous Post: Automatically run the migrations in Heroku">&laquo; Automatically run the migrations in Heroku</a>
+        <a class="basic-alignment left" href="/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/" title="Previous Post: upload images using cloudinary in Heroku">&laquo; upload images using cloudinary in Heroku</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2018/04/11/rails-app-deployment-using-gcp/" title="Next Post: Rails App Deployment using GCP:Series 1">Rails App Deployment using GCP:Series 1 &raquo;</a>
       
     </p>
   </footer>
@@ -326,8 +384,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://anoobbava.github.io/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/';
-        var disqus_url = 'http://anoobbava.github.io/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/';
+        var disqus_identifier = 'http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp/';
+        var disqus_url = 'http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp/';
         var disqus_script = 'embed.js';
       
     (function () {

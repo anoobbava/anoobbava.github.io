@@ -9,7 +9,7 @@
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="Intro As discussed in the previous blogs, heroku is an awesome tool to deploy our application within minutes and no hassles. The issue is with the &hellip;">
+  <meta name="description" content="Deployment using GCP This will be a series of tutorials in which step by step deployment of a ROR project in Google Cloud or GCP. From here onwards &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,178 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/04/11/rails-app-deployment-using-gcp/">Rails App Deployment Using GCP:Series 1</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-04-11T00:32:23+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>11</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>12:32 am</span></time>
+        
+           | <a href="/blog/2018/04/11/rails-app-deployment-using-gcp/#disqus_thread"
+             data-disqus-identifier="http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Deployment using GCP</h2>
+
+<p><img src="/images/gcp-1/0.png" width="800" height="300"></p>
+
+<p>This will be a series of tutorials in which step by step deployment of a ROR project in Google Cloud or GCP. From here onwards it is mentioned as GCP.</p>
+
+<h2>Why GCP</h2>
+
+<p>I am a huge Fan of Open Source Technologies, I have used the Heroku Free Tier, RedHat,Engine Yard Also. I have been tried to use the AWS for a long time. The issue with AWS is that it has free tier but needed credit card to sign-up.Also In the case of heroku, is a PAAS Application and all the process are automated and customisation is less.</p>
+
+<h4>Pros of GCP</h4>
+
+<ol>
+<li>comes from Google , oh! Yaaah</li>
+<li>No need of credit Card</li>
+<li>Need only debit card with VISA or MASTER CARD.</li>
+<li>gives us the $300 credit once signup.</li>
+<li>$300 credit for 12 months</li>
+</ol>
+
+
+<p><code>Google Cloud Platform, offered by Google, is a suite of cloud computing services that runs on the same infrastructure that Google uses internally for its end-user products, such as Google Search and YouTube.</code></p>
+
+<p>We have explained here is the basic use case to deploy the app, for more details, please refer the official guide.</p>
+
+<h3>signup</h3>
+
+<ol>
+<li>go to <a href="http://www.cloud.google.com/">got to GCP</a></li>
+<li>signup with your email</li>
+<li>add the payment details; dont worry, only debit Card needed, they is no harm because of this, they dont take amount from account unless you have to upgrade the account.</li>
+</ol>
+
+
+<p>Note:
+  I have used ICICI Debit Account, and they deducted 50Rs from my account to verify and returned the amount. So No Worries, only i got is a 2 rs for MY OTP.</p>
+
+<p><img src="/images/gcp-1/0_1.png" width="300" height="600"></p>
+
+<h3>Create a Project</h3>
+
+<p>Now, create a Project.</p>
+
+<p><img src="/images/gcp-1/1.png" width="800" height="300"></p>
+
+<p>give a name for the project</p>
+
+<p><img src="/images/gcp-1/2.png" width="800" height="400"></p>
+
+<h3>Create an instance</h3>
+
+<p>Now the process is create the instance. Instance is something like a virtual machine. This can be fetched from the Compute Engine. Example instances are production, staging etc.</p>
+
+<p><img src="/images/gcp-1/3.png" width="800" height="400"></p>
+
+<p>Now, add some details to complete the instance creation.</p>
+
+<p><img src="/images/gcp-1/4.png" width="800" height="400"></p>
+
+<p>I have used is the ubuntu 16.04, you can choose your BootDisk.</p>
+
+<p>Now, important part, need to link the SSH Key to the GCP.</p>
+
+<p><img src="/images/gcp-1/5.png" width="800" height="400"></p>
+
+<p>click on the create instance</p>
+
+<h3>Link SSH to GCP</h3>
+
+<p>go to the metadata and click on the SSH keys and ADD,then paste the public key to there.</p>
+
+<p><img src="/images/gcp-1/13.png" width="800" height="400"></p>
+
+<p>In order to do that, need to copy the public key</p>
+
+<ol>
+<li>Show the available SSH keys</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ls -al ~/.ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp-1/6.png" width="800" height="400"></p>
+
+<ol>
+<li>copy the desired public key</li>
+</ol>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>head ~/.ssh/id_rsa.pub</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp-1/7.png" width="800" height="400"></p>
+
+<ol>
+<li>Add the public Key to the GCP</li>
+</ol>
+
+
+<p><img src="/images/gcp-1/8.png" width="800" height="400"></p>
+
+<h3>Create a Pem File</h3>
+
+<p>because of security concerns and multiple connectivity of instances, We need to generate the pem file from the public key, this is achieved by using.</p>
+
+<p>open a new terminal and run the below code.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -f ~/.ssh/id_rsa.pub -m 'PEM' -e > public.pem</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp-1/9.png" width="100" height="50"></p>
+
+<p>Now the code will generate the pem file in the place of terminal points to , in my case it is home path</p>
+
+<p>Now change the permission of the pem file, by below comand</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 600 public.pem</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>connect the GCP using SSH</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -i public.pem user_name@external_ip</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp-1/14.png" width="800" height="300"></p>
+
+<p>user_name is the name which is shown when we copy the ssh key, here irfana_anoob is the user_name</p>
+
+<p>external-ip is the IP which is given when we create the instance</p>
+
+<p><img src="/images/gcp-1/15.png" width="800" height="300"></p>
+
+<p>this is the Series1, will be posting more posts on this Also.</p>
+
+<p>all set. thanks guys, comment if any error or doubt happend.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1534,6 +1706,10 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/04/11/rails-app-deployment-using-gcp/">Rails App Deployment Using GCP:Series 1</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/">Upload Images Using Cloudinary in Heroku</a>
       </li>
     
@@ -1547,10 +1723,6 @@ Need to check the settings of the travis-ci of particular repo, like when the bu
     
       <li class="post">
         <a href="/blog/2018/03/16/allow-mutiple-images-via-carrierwave/">Allow Mutiple Images via Carrierwave</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/">Implement Likes Rails With AJAX Using Acts as Votable Gem</a>
       </li>
     
   </ul>
