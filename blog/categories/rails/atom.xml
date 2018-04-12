@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-04-11T01:44:53+05:30</updated>
+  <updated>2018-04-12T17:26:04+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,145 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Install Ruby and Postgres to GCP:Series2]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2/"/>
+    <updated>2018-04-12T15:51:22+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2</id>
+    <content type="html"><![CDATA[<p>Hi All, Welcome to series 2, here are explaining about the ruby and Postgres installation to our GCP Server. If you know about that in linux 16.04 version, you can skip this tutorial. this is entirely based on the ubuntu 16.04 LTS machine and not much . I read the digital ocean, GoRails etc to publish this article and use the tehniques explained by them also.</p>
+
+<h2>Install Ruby</h2>
+
+<p>  first need to connect to our GCP using pem file.</p>
+
+<p>  <img src="/images/series2/0.png" width="800" height="400"></p>
+
+<h3>Install RVM</h3>
+
+<h4>connect gpg keys</h4>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg &ndash;keyserver hkp://keys.gnupg.net &ndash;recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/2.png" width="800" height="400"></p>
+
+<h4>Install curl</h4>
+
+<p>  install curl if not installed</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install curl</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/3.png" width="800" height="400"></p>
+
+<h4>Use curl for rvm script</h4>
+
+<p>  Now use the curl to install the rvm script</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\curl -sSL &lt;a href="https://get.rvm.io">https://get.rvm.io&lt;/a> -o rvm.sh</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/4.png" width="800" height="400"></p>
+
+<h4>Install RVM</h4>
+
+<p>  Now, the below command installs the latest version of the rvm and does all the depandancies.</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat rvm.sh | bash -s stable</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/5.png" width="800" height="400">
+  Now, install the lates version of Ruby, using the below command</p>
+
+<h4>Install latest Ruby</h4>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm install ruby &ndash;default</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/7.png" width="800" height="400"></p>
+
+<h4>check the ruby Version</h4>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ruby -v</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/8.png" width="800" height="400"></p>
+
+<h2>Install Postgres</h2>
+
+<p>  execute the below commands one by one</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo sh -c &ldquo;echo &lsquo;deb &lt;a href="http://apt.postgresql.org/pub/repos/apt/">http://apt.postgresql.org/pub/repos/apt/&lt;/a> xenial-pgdg main&rsquo; > /etc/apt/sources.list.d/pgdg.list&rdquo;
+</span><span class='line'>    wget &ndash;quiet -O - &lt;a href="http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc">http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc&lt;/a> | sudo apt-key add -
+</span><span class='line'>    sudo apt-get update
+</span><span class='line'>    sudo apt-get install postgresql-common
+</span><span class='line'>    sudo apt-get install postgresql-9.5 libpq-dev</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/9.png" width="800" height="400">
+  <img src="/images/series2/10.png" width="800" height="400">
+  <img src="/images/series2/11.png" width="800" height="400">
+  <img src="/images/series2/12.png" width="800" height="400">
+  <img src="/images/series2/13.png" width="800" height="400"></p>
+
+<h4>Roles in postgres</h4>
+
+<p>  by default postgres create a root user called role here is &ldquo;postgres&rdquo;</p>
+
+<p>  to use that</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo -i -u postgres</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/30.png" width="800" height="400"></p>
+
+<h4>Create a New Role</h4>
+
+<p>  We entered to the console, now, create a new Role.</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>createuser &ndash;interactive</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/15.png" width="800" height="400"></p>
+
+<p>now, the user is created, now to check that type</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql</span></code></pre></td></tr></table></div></figure></p>
+
+<p>when the console comes, then type</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\du</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/16.png" width="800" height="400"></p>
+
+<h4>To set Password for User</h4>
+
+<p>go to the psql by command</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo -u postgres psql</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/17.png" width="800" height="400"></p>
+
+<p>  type</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/password user_name</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/18.png" width="800" height="400"></p>
+
+<p>this is the end of series, will post more in another series</p>
+
+<p>all set. thanks guys, comment if any error or doubt happend.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails App Deployment Using GCP:Series 1]]></title>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-04-11T01:44:53+05:30</updated>
+  <updated>2018-04-12T17:26:04+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,145 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Install Ruby and Postgres to GCP:Series2]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2/"/>
+    <updated>2018-04-12T15:51:22+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2</id>
+    <content type="html"><![CDATA[<p>Hi All, Welcome to series 2, here are explaining about the ruby and Postgres installation to our GCP Server. If you know about that in linux 16.04 version, you can skip this tutorial. this is entirely based on the ubuntu 16.04 LTS machine and not much . I read the digital ocean, GoRails etc to publish this article and use the tehniques explained by them also.</p>
+
+<h2>Install Ruby</h2>
+
+<p>  first need to connect to our GCP using pem file.</p>
+
+<p>  <img src="/images/series2/0.png" width="800" height="400"></p>
+
+<h3>Install RVM</h3>
+
+<h4>connect gpg keys</h4>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gpg &ndash;keyserver hkp://keys.gnupg.net &ndash;recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/2.png" width="800" height="400"></p>
+
+<h4>Install curl</h4>
+
+<p>  install curl if not installed</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install curl</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/3.png" width="800" height="400"></p>
+
+<h4>Use curl for rvm script</h4>
+
+<p>  Now use the curl to install the rvm script</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\curl -sSL &lt;a href="https://get.rvm.io">https://get.rvm.io&lt;/a> -o rvm.sh</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/4.png" width="800" height="400"></p>
+
+<h4>Install RVM</h4>
+
+<p>  Now, the below command installs the latest version of the rvm and does all the depandancies.</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat rvm.sh | bash -s stable</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/5.png" width="800" height="400">
+  Now, install the lates version of Ruby, using the below command</p>
+
+<h4>Install latest Ruby</h4>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm install ruby &ndash;default</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/7.png" width="800" height="400"></p>
+
+<h4>check the ruby Version</h4>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ruby -v</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/8.png" width="800" height="400"></p>
+
+<h2>Install Postgres</h2>
+
+<p>  execute the below commands one by one</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo sh -c &ldquo;echo &lsquo;deb &lt;a href="http://apt.postgresql.org/pub/repos/apt/">http://apt.postgresql.org/pub/repos/apt/&lt;/a> xenial-pgdg main&rsquo; > /etc/apt/sources.list.d/pgdg.list&rdquo;
+</span><span class='line'>    wget &ndash;quiet -O - &lt;a href="http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc">http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc&lt;/a> | sudo apt-key add -
+</span><span class='line'>    sudo apt-get update
+</span><span class='line'>    sudo apt-get install postgresql-common
+</span><span class='line'>    sudo apt-get install postgresql-9.5 libpq-dev</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/9.png" width="800" height="400">
+  <img src="/images/series2/10.png" width="800" height="400">
+  <img src="/images/series2/11.png" width="800" height="400">
+  <img src="/images/series2/12.png" width="800" height="400">
+  <img src="/images/series2/13.png" width="800" height="400"></p>
+
+<h4>Roles in postgres</h4>
+
+<p>  by default postgres create a root user called role here is &ldquo;postgres&rdquo;</p>
+
+<p>  to use that</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo -i -u postgres</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/30.png" width="800" height="400"></p>
+
+<h4>Create a New Role</h4>
+
+<p>  We entered to the console, now, create a new Role.</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>createuser &ndash;interactive</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/15.png" width="800" height="400"></p>
+
+<p>now, the user is created, now to check that type</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>psql</span></code></pre></td></tr></table></div></figure></p>
+
+<p>when the console comes, then type</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\du</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/16.png" width="800" height="400"></p>
+
+<h4>To set Password for User</h4>
+
+<p>go to the psql by command</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo -u postgres psql</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/17.png" width="800" height="400"></p>
+
+<p>  type</p>
+
+<p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/password user_name</span></code></pre></td></tr></table></div></figure></p>
+
+<p>  <img src="/images/series2/18.png" width="800" height="400"></p>
+
+<p>this is the end of series, will post more in another series</p>
+
+<p>all set. thanks guys, comment if any error or doubt happend.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rails App Deployment Using GCP:Series 1]]></title>
@@ -538,243 +677,6 @@ for me, 2 nd one is not required.</li>
 
 <script src="https://gist.github.com/anoobbava/27255d8052d7b8d5ac095f511e6e242b.js"></script>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Create a Blog With Octopress]]></title>
-    <link href="http://anoobbava.github.io/blog/2017/11/14/create-a-blogging-site-using-octopress-and-github/"/>
-    <updated>2017-11-14T19:20:57+05:30</updated>
-    <id>http://anoobbava.github.io/blog/2017/11/14/create-a-blogging-site-using-octopress-and-github</id>
-    <content type="html"><![CDATA[<h3>Why Blogging</h3>
-
-<p>Most of us are very much interested to write the blog to share what we think and to express our ideas to the world. But in reality, it won&rsquo;t work. Sometimes Lazy attitude and lack of knowlegde about how to blog. Thanks to Ruby We have Awesome tool called Jekyll to blog.</p>
-
-<h3>What is a Jekyll.</h3>
-
-<p><img src="/images/octopress/jekyll_image.png" width="600" height="300"></p>
-
-<p>Jeykyll is a static, simple blog aware site generator out of ruby. It is the one of the most trending repos of ruby in gthub.There are a lot of customisations in the jekyll; when we look it for the first time, we dont understand it very well.Same experiance for me too, but I don&rsquo;t give up. I learned more about that and I came up with Octopress.</p>
-
-<p><a href="https://github.com/jekyll/jekyll">github link for jekyll</a></p>
-
-<h3>What is Octopress</h3>
-
-<p>First of all, Octopress is a blogging framework for hackers built on top of jekyll. It has awesome theme with nice understanding workflow for a newbee.</p>
-
-<h3>What we need</h3>
-
-<ol>
-<li>Github account</li>
-<li>undertstanding about Ruby Programing language</li>
-<li>YML and kind of thigs</li>
-<li>Any IDE like Sublime Text</li>
-</ol>
-
-
-<h3>Setup Github</h3>
-
-<p>The reason I like GitHub it is super cool and provides free services. We can create public repos free and there is a place for static page too. In order to that need to create a repo name like this
-github-user-name.github.io.
-github-user-name is the username of your GitHub. Suppose your username is awesome.Repo name is awesome.github.io</p>
-
-<h4>Create new repository</h4>
-
-<p>  for test purpose used a repo named user-name.github.io, here i have used awesome.github.io</p>
-
-<p>  <img src="/images/octopress/1.png" width="600" height="300"></p>
-
-<p>make sure it is a public repository and create repository.
-since already have a github.io in my account, I cant use that refer to this answer in stackoverflow.
-<a href="https://stackoverflow.com/questions/15563685/can-i-create-more-than-one-repository-for-github-pages">refer link for details</a>.All done from th github account.</p>
-
-<h3>Setup the octopress.</h3>
-
-<p><a href="http://octopress.org/docs/setup/">Refer using the link</a></p>
-
-<ol>
-<li><p>before installing octopress, make sure we have the ruby, git installed in our system.</p></li>
-<li><p>clone the octopress using below git url
-<code>
-git clone git://github.com/imathis/octopress.git awesome_blog
-</code></p></li>
-<li><p>Change to the directory awesome_blog</p></li>
-</ol>
-
-
-<p><img src="/images/octopress/2.png" width="600" height="300"></p>
-
-<p>4.set the ruby version using rvm</p>
-
-<p><img src="/images/octopress/3.png" width="600" height="300"></p>
-
-<p>5.install the bundler using below command</p>
-
-<pre><code>gem install bundler
-</code></pre>
-
-<p>6.then bundle install</p>
-
-<p><img src="/images/octopress/4.png" width="600" height="300"></p>
-
-<p>7.octopress is bundled with default theme, we can customise later, for now, we will use the default theme.</p>
-
-<pre><code>rake install
-</code></pre>
-
-<p><img src="/images/octopress/5.png" width="600" height="300"></p>
-
-<h3>linking GitHub account with Octopress</h3>
-
-<p>To do that we need to run this code.</p>
-
-<pre><code>rake setup_github_pages
-</code></pre>
-
-<p>It is actually a rake task will ask the GitHub URL Repo.
-here we have
-<code>
-git@github.com:anoobbava/awesome.github.io.git
-</code>
-Also it creates a new remote called octopress. A new branch source is created which contains the updations from our side where as the master contains the static page.</p>
-
-<p><img src="/images/octopress/6.png" width="600" height="300"></p>
-
-<p>Now the process we need to generate a static page from this code, this can be achived using below command.
-<code>
-rake generate
-</code>
-push this generated static site to the github using the command.
-<code>
-rake deploy
-</code></p>
-
-<p>Now the page is deployed, but the changes are still in the local machine we need to push to source branch.
-Which is achieved by
-<code>
-  git add .
-  git commit -m 'commit msg'
-  git push origin source
-</code>
-<em>Note to remember:</em> The static page deployed in the master branch and the code that we changed need to be pushed to source branch.</p>
-
-<p>when we done any changes, and need this change in the production, so the below commands to be executed after every changes occurs.
-<code>
-  rake generate
-  rake deploy
-</code>
-7.png</p>
-
-<p><img src="/images/octopress/7.png" width="600" height="300"></p>
-
-<p>I have an existing user-name.github.io with account, So i can&rsquo;t create an another one. So I will be explain about the existing github.io account.</p>
-
-<h3>Write a Blog using Octopress</h3>
-
-<p>For that I have switched to my account, you guys can use the user-name.github.io account.</p>
-
-<p>Create a new post using below command.</p>
-
-<pre><code class="`"> rake new_post["post_name"]
-</code></pre>
-
-<p> Before creating a blog post, We need to understand that this rake will generate a file in a markdown format and this markdown file will be end with YYYY-MM-DD-post-title.markdown and the path is in source/_posts.</p>
-
-<p> Here I am creating a blog of how to create a blog using octopress and github.</p>
-
-<p><img src="/images/octopress/8.png" width="600" height="300"></p>
-
-<p>The above rake will create a YAML based file which contains below details</p>
-
-<pre><code>---
-layout: post
-title: "Create a Blogging site using Octopress and GitHub"
-date: 2017-11-14 19:20:57 +0530
-comments: true
-categories: 
----
-</code></pre>
-
-<p>All the things are bit straight forward ,only doubt comes from comments: true and the categories. Comments will be discussed later, categories means which all categories this blog will comes, we can provide multiple ones, here I am using below ones only.</p>
-
-<pre><code>categories: [Ruby, octopress]
-</code></pre>
-
-<p>Now we need to test what is the result is going to come, achieved by using below commands,</p>
-
-<pre><code>rake generate # will make the static file
-rake preview # generate a localhost:4000 web browser and we can preview file.
-</code></pre>
-
-<p><img src="/images/octopress/9.png" width="600" height="300"></p>
-
-<h3>Browser result</h3>
-
-<p><img src="/images/octopress/10.png" width="600" height="300"></p>
-
-<p>If we don&rsquo;t want the file to be published and we need to do some path works and design and something and you are in the middle of the blog, then set the</p>
-
-<pre><code>published: false
-</code></pre>
-
-<p>to the blog post and it will not publish the page to the blogging site
-example:
-<code>
-blog yml
-layout: post
-title: "Create a Blogging site using Octopress and GitHub"
-date: 2017-11-14 19:20:57 +0530
-comments: true
-categories: [Ruby, octopress]
-published: false
-</code>
-then refresh the browser, Hooray the new blog is disappeard.</p>
-
-<p><img src="/images/octopress/11.png" width="600" height="300"></p>
-
-<h3>Sharing code and highlights</h3>
-
-<p>we can use using tilde &ldquo;~&rdquo; symbols for this option.The below option is achived using 3 tilde in one line, then in the next line data and in the next line 3 symbols</p>
-
-<pre><code>You are Awesome
-</code></pre>
-
-<p><img src="/images/octopress/12.png" width="300" height="100"></p>
-
-<h4>Display images inside the blog</h4>
-
-<ol>
-<li>Place the image in to the blog path/source/images/
-2.better to keep a folder for each blog posts inside the images/</li>
-</ol>
-
-
-<pre><code>syntax: {"%img /images/blogfolder/image_name size %"}
-example : {"%img /images/octopress/23 600 300 %"}
-</code></pre>
-
-<p>Since we cant use the correct syntax, because octopress executed as command, so Please remove the double quotes inside the braces before using the above syntax.</p>
-
-<h4>Gist inclusion</h4>
-
-<p>If we have more code examples, the preferred is the gist inclusion. Gist is a place where we can store the chunks of code for later use, like the commons rspec for a controllers or ActiveRecord queries etc.
-It is Free and from github. Go to the <a href="https://gist.github.com/">ink</a> and create a gist and add to the blog. copy the embeded path starts with the &ldquo;script src&rdquo; and paste inside the blog like below</p>
-
-<p>```</p>
-
-<script src="https://gist.github.com/anoobbava/e197d468b7f8d8cc3e404fed9ced1b38.js"></script>
-
-
-<pre><code>
-All of configs are not covered here, Please refer the official octopress blog for details. Happy Blogging all of you, dont forget that once you completed, then do the below steps to complete
-</code></pre>
-
-<p>rake generate
-rake deploy
-rake add .
-git commit -m &lsquo;Completed the blog about the octopress&rsquo;
-git push origin source
-```</p>
 ]]></content>
   </entry>
   
