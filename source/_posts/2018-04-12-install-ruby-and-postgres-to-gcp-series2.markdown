@@ -137,7 +137,7 @@ go to the psql by command
   type
 
   {%codeblock%}
-    /password user_name
+    \password user_name
   {%endcodeblock%}
 
   {% img /images/series2/18.png 800 400 %}
