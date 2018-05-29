@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Gcloud | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/gcloud/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-04-12T17:26:04+05:30</updated>
+  <updated>2018-05-30T01:06:35+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -142,7 +142,7 @@
 <p>  type</p>
 
 <p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/password user_name</span></code></pre></td></tr></table></div></figure></p>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\password user_name</span></code></pre></td></tr></table></div></figure></p>
 
 <p>  <img src="/images/series2/18.png" width="800" height="400"></p>
 

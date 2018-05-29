@@ -4,7 +4,7 @@
   <title><![CDATA[Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-04-12T17:26:04+05:30</updated>
+  <updated>2018-05-30T01:06:35+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,323 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Delayed Job With Recurring Option]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/05/29/delayed-job-with-recurring-option/"/>
+    <updated>2018-05-29T22:37:41+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/05/29/delayed-job-with-recurring-option</id>
+    <content type="html"><![CDATA[<h2>delayed job recurring</h2>
+
+<h3>Requirement</h3>
+
+<p>I have an app called clone app and the user will update some information to the table call user_informations. Our requirement is to copy this data to another table user_information_backups. It will be a background job. But we dont want to run this when the user updated the user_informations, instead what we are planning is to do the backup in each 5 mins. when the backup is completed, mark the cloned one master as flagged to restrict one information to be taken more than one.</p>
+
+<p><a href="git@github.com:anoobbava/delayed_job_recurring_example.git">app link</a></p>
+
+<h3>1. create an app user_clone</h3>
+
+<p><img src="http://anoobbava.github.io/images/dj/1.png" width="800" height="500"></p>
+
+<p>used the database as mysql in dev, since I have sqlyog to installed for proper UI View and understanding.</p>
+
+<p>database is mysql , we can understand from the gemfile.</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/2.png" width="800" height="500"></p>
+
+<p>my database.yml file is attached below</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/3.png" width="600" height="200"></p>
+
+<p>Need to create the database</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/4.png" width="800" height="500"></p>
+
+<p>now the database is shown in the sqlyog tool</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/5.png" width="400" height="300"></p>
+
+<p>create the model UserInformation</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/6.png" width="900" height="500"></p>
+
+<p>update the user_informations migration</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/7.png" width="900" height="500"></p>
+
+<p>migrated the file</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/8.png" width="900" height="500"></p>
+
+<p>created the model UserInformationBackup</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/9.png" width="900" height="500"></p>
+
+<p>display the table in sqlyog</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/10.png" width="400" height="200"></p>
+
+<p>Now, we need to generate the controller</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/11.png" width="900" height="500"></p>
+
+<p>Do the crud operations.</p>
+
+<p>controller code is attached here below,</p>
+
+<script src="https://gist.github.com/anoobbava/b1a856e6d9b732cbd1565e5a643714ce.js"></script>
+
+
+<p>routes file</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/12.png" width="300" height="100"></p>
+
+<p>index page</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/13.png" width="900" height="500"></p>
+
+<p>new Page</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/14.png" width="900" height="500"></p>
+
+<p>update the migration to fetch only the unselected ones</p>
+
+<p>is_selected to user_informations , default value: false</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/15.png" width="900" height="500"></p>
+
+<p><img src="http://anoobbava.github.io/images/dj/16.png" width="900" height="500"></p>
+
+<p>add a custom action in controller and route</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  get 'users/display_backup', to: "users#display_backup"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>action in controller</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  def display_backup
+</span><span class='line'>    @users = UserInformation.all.where(is_selected: false)
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>create the view part for the action</p>
+
+<p>Now, the Application part completed, moving to our delayed_job and its works.</p>
+
+<h3>Delayed Job</h3>
+
+<p>  install delayed_job</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/17.png" width="600" height="300"></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails generate delayed_job:active_record</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/dj/18.png" width="900" height="700"></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails db:migrate</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/dj/19.png" width="900" height="600"></p>
+
+<p>set the below config in application.rb</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  config.active_job.queue_adapter = :delayed_job</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/dj/20.png" width="900" height="700"></p>
+
+<p>Now the backup process code explained</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  def self.intiate_backup
+</span><span class='line'>    user_details = UserInformation.fetch_details
+</span><span class='line'>    if user_details.present?
+</span><span class='line'>      instance_data = []
+</span><span class='line'>      user_details.each do |user_data|
+</span><span class='line'>        user_backup_instance = UserInformationBackup.new
+</span><span class='line'>        user_backup_instance.first_name = user_data.first_name
+</span><span class='line'>        user_backup_instance.last_name = user_data.last_name
+</span><span class='line'>        user_backup_instance.secret_message =user_data.secret_message
+</span><span class='line'>        instance_data &lt;&lt; user_backup_instance
+</span><span class='line'>      end
+</span><span class='line'>      UserInformationBackup.import instance_data
+</span><span class='line'>      user_details.update_all(is_selected: true)
+</span><span class='line'>      end
+</span><span class='line'>    end
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>now test this process via Delayed job, we can use the rails console to check this</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/21.png" width="900" height="500"></p>
+
+<p><img src="http://anoobbava.github.io/images/dj/22.png" width="900" height="600"></p>
+
+<p>now the entry got added, we can this delayed job using the command</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  bundle exec rails jobs:work</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/dj/23.png" width="900" height="600"></p>
+
+<p>one issue we have encountered is we have used model.import , which is coming from</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'activerecord-import'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>it is not added here, need to add the gem and do the bundle install</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  gem 'activerecord-import', '~&gt; 0.23.0'</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/dj/24.png" width="600" height="300"></p>
+
+<p>and do the same same as via console and restart the delayed job</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/25.png" width="900" height="500"></p>
+
+<p>hooray , our process is done, now it will be cloned to the user_information_backups table</p>
+
+<p>user_informations table</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/26.png" width="900" height="500"></p>
+
+<p>user_information_backups table</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/27.png" width="900" height="500"></p>
+
+<p>now 2 images got the same, we can&rsquo;t see any difference. in order to check the difference we will create a new entry to the user_informations table via UI</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/28.png" width="600" height="300"></p>
+
+<p>I have added jayakrishnan as a new entry, since this data is not cloned by the user_information_backups, it will not be there.</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/29.png" width="600" height="300"></p>
+
+<p>Now we run the DJ via console and see the magic,</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/30.png" width="900" height="500"></p>
+
+<p><img src="http://anoobbava.github.io/images/dj/31.png" width="900" height="500"></p>
+
+<p><img src="http://anoobbava.github.io/images/dj/32.png" width="600" height="300"></p>
+
+<p>Now it is the time for our cookery show, we will do the delayed job recurring.</p>
+
+<p>add below gem to the gemfile.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  gem 'delayed_job_recurring', '~&gt; 0.3.7'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and do the bundle install</p>
+
+<p>create a folder in app/interactors.</p>
+
+<p>create a file in that, we can use any file name for example, created  a file name <em>clone_process.rb</em> in</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  app/interactors</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  class CloneProcess
+</span><span class='line'>    include Delayed::RecurringJob
+</span><span class='line'>    run_every 5.minutes
+</span><span class='line'>
+</span><span class='line'>    def perform
+</span><span class='line'>      UserInformationBackup.intiate_backup
+</span><span class='line'>    end
+</span><span class='line'>  end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, this class needs to be called for one time,  for reuse, we can use the rakes;
+path: <em>lib/tasks/recurring.rake</em></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>namespace :recurring do
+</span><span class='line'>  task init: :environment do
+</span><span class='line'>    CloneProcess.schedule!
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In order to run this recurring job for one time, need to call  the rake task using</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>   bundle exec rails recurring:init</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/33.png" width="900" height="500"></p>
+
+<p>An entry is being made up in the DJ and it will be updated by the delayed_job_recurring gem</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/34.png" width="900" height="500"></p>
+
+<p>in order to test this we will create a new data via UI and wait for the DJ to pickup</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/35.png" width="600" height="300"></p>
+
+<p>but this data is not here in the clone table</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/36.png" width="600" height="300"></p>
+
+<p>after 5 minutes, DJ will pick up this.</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/37.png" width="900" height="500"></p>
+
+<p>in UI,</p>
+
+<p><img src="http://anoobbava.github.io/images/dj/38.png" width="600" height="300"></p>
+
+<p>visit the offical doc for further details</p>
+
+<p><a href="https://github.com/amitree/delayed_job_recurring">official doc</a></p>
+
+<p>Hooray, my work is done here, feel free to comment if any issue</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Install Ruby and Postgres to GCP:Series2]]></title>
@@ -142,7 +459,7 @@
 <p>  type</p>
 
 <p>  <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/password user_name</span></code></pre></td></tr></table></div></figure></p>
+</pre></td><td class='code'><pre><code class=''><span class='line'>\password user_name</span></code></pre></td></tr></table></div></figure></p>
 
 <p>  <img src="http://anoobbava.github.io/images/series2/18.png" width="800" height="400"></p>
 
