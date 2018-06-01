@@ -18,9 +18,9 @@ Hi All, Welcome to series 2, here are explaining about the ruby and Postgres ins
 
 #### connect gpg keys
 
-  {%codeblock%}
+```
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-  {%endcodeblock%}
+```
 
   {% img /images/series2/2.png 800 400 %}
 
@@ -54,13 +54,32 @@ Hi All, Welcome to series 2, here are explaining about the ruby and Postgres ins
   {% img /images/series2/5.png 800 400 %}
   Now, install the lates version of Ruby, using the below command
 
+
+
+#### RVM use
+
+  Installing RVM to /home/username/.rvm/
+
+  Adding rvm PATH line to /home/username/.profile /home/username/.mkshrc /homeusername/.bashrc /home/username/.zshrc.
+
+  Adding rvm loading line to /home/username/.profile /home/username/.bash_profile /home/username/.zlogin.
+
+  Installation of RVM in /home/username/.rvm/ is almost complete:
+
+  * To start using RVM you need to run
+  ```
+  source /home/username/.rvm/scripts/rvm
+```
+in all your open shell windows, in rare cases you need to reopen all shell windows.
+
 #### Install latest Ruby
 
-  {%codeblock%}
+  ```
     rvm install ruby --default
-  {%endcodeblock%}
+  ```
 
   {% img /images/series2/7.png 800 400 %}
+
 
 #### check the ruby Version
 
