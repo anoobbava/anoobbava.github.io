@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Introduction to Circle CI - Awesome Web Blog</title>
+  <title>GCP:3 Install Nginx and Setup Unicorn - Awesome Web Blog</title>
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="Intro &amp;&amp; Setup Project CircleCI helps you ship better code, faster. To kick things off, you&rsquo;ll need to add a config.yml file to your &hellip;">
+  <meta name="description" content="Introduction Hi All, this is the 3rd post of our deployment tool, so far we have covered the Setup for instance and installing ruby and postgres. Now &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/">
+  <link rel="canonical" href="http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Awesome Web Blog" type="application/atom+xml">
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Introduction to Circle CI</h1>
+      <h1 class="entry-title">GCP:3 Install Nginx and Setup Unicorn</h1>
     
     
       <p class="meta">
@@ -88,7 +88,7 @@
 
 
 
-<time class='entry-date' datetime='2017-10-24T20:06:55+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>8:06 pm</span></time>
+<time class='entry-date' datetime='2018-06-21T18:15:15+05:30'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2018</span></span> <span class='time'>6:15 pm</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://anoobbava.github.io">Comments</a>
@@ -98,53 +98,89 @@
   </header>
 
 
-<div class="entry-content"><h2>Intro &amp;&amp; Setup Project</h2>
+<div class="entry-content"><h2>Introduction</h2>
 
-<p>CircleCI helps you ship better code, faster. To kick things off, you&rsquo;ll need to add a config.yml file to your project, and start building. After that, we&rsquo;ll start a new build for you each time make a PR. Similar to travis; here also needed a yml file for configs and update.</p>
+<p>Hi All, this is the 3rd post of our deployment tool, so far we have covered the Setup for instance and installing ruby and postgres. Now what we want is to install the Nginx and Unicorn. Nginx is our App server and Unicorn is our web server. We are Not going to explain about the concepts of nginx and Unicorn; instead we used these tools to deploy our App.We already had a staging server, we used that to setup and installation.</p>
 
-<h2>Steps</h2>
+<h3>A little House keeping</h3>
 
-<p>1.Signup using github</p>
+<p>Image of the staging server is running.</p>
 
-<p><img src="/images/circleci/intro.png" width="800" height="300"></p>
+<p><img src="/images/gcp3/1.png" width="600" height="400"></p>
+
+<p>terminal connection in staging server</p>
+
+<p><img src="/images/gcp3/2.png" width="600" height="400"></p>
+
+<h3>Setup Nginx</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo apt-get install nginx</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp3/3.png" width="600" height="100"></p>
+
+<p>Now Check the nginx status using</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx status</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp3/4.png" width="600" height="100"></p>
+
+<p>other commands</p>
+
+<p>to restart nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to stop the nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to start the nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx start</span></code></pre></td></tr></table></div></figure>
+
+
+<p>here we are not configuring the nginx right now, we will do that later.</p>
+
+<h3>Installing Unicorn</h3>
+
+<p> Like I already said, we are using the unicorn as app server,by default puma is
+the development server with Rails 5.X.X.</p>
+
+<p>1.add the unicorn gem to production group</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  gem 'unicorn'</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/gcp3/5.png" width="400" height="100"></p>
 
 <ol>
-<li>Add our Project</li>
+<li>add the unicorn configuration file in config/ path</li>
 </ol>
 
 
-<p><img src="/images/circleci/add_project.png" width="800" height="300"></p>
+<p><img src="/images/gcp3/6.png" width="800" height="100"></p>
 
-<ol>
-<li><p>Create a folder named .circleci and add a fileconfig.yml (so that the filepath in .circleci/config.yml).</p></li>
-<li><p>Populate the config.yml with the contents of the below file.</p></li>
-</ol>
+<p>Consider only the unicorn.rb file only.The total scripts are added below for
+verification, Like I already said, there are a lot of configurations are there.
+Just google it for details.</p>
 
-
-<script src="https://gist.github.com/anoobbava/2c9417987a3e67210395119aa5083c48.js"></script>
+<script src="https://gist.github.com/anoobbava/cb5b1fa5a71f73a204a6c51ea1e03c08.js"></script>
 
 
-<ol>
-<li><p>Update the config.yml to reflect your project&rsquo;s configuration.</p></li>
-<li><p>Push this change to GitHub.</p></li>
-<li><p>Start building! This will launch your project on Circle CI , now it will analyse the code and check the system for PR.all done, system will automatically test when make our PR.</p></li>
-</ol>
-
-
-<p><img src="/images/circleci/circle_Pr.png" width="800" height="300"></p>
-
-<p>Awesome, we got our error on build we can see what is the error.</p>
-
-<p><img src="/images/circleci/circle_error_pr.png" width="800" height="300"></p>
-
-<p>The issue is we have mentioned is ruby in gem file as 2.3.1 but in the config of circle is 2.4.1. we will update it as another commit.</p>
-
-<p>I Found it, circle CI using docker images pre-built ones, Here we are using the ruby version 2.3.1 in Gemfile and the config.yml added 2.4.1. Going the below url
-<a href="https://circleci.com/docs/2.0/circleci-images/#ruby">go to circle docs info</a>
-- most matched version is 2.3; now we are commiting using that code. All work fine.Now we select the image,
-We can select linux, IOS, or custom host in circle CI, For this tutorial I have used the linux plan, hobbyist one. We can use containers.</p>
-
-<p><img src="/images/circleci/circle_all_test_passed.png" width="800" height="300"></p>
+<p>3.commit these code changes to our code base, since I have already commit those,
+ I don&rsquo;t want do it again.
+I know, it is only a short blog, we just covered here, will explained about
+deployment using mina in the next blog,!!promise</p>
 </div>
 
 
@@ -160,12 +196,12 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
 
 
 
-<time class='entry-date' datetime='2017-10-24T20:06:55+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>24</span><span class='date-suffix'>th</span>, <span class='date-year'>2017</span></span> <span class='time'>8:06 pm</span></time>
+<time class='entry-date' datetime='2018-06-21T18:15:15+05:30'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2018</span></span> <span class='time'>6:15 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/ci/'>ci</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/gcp/'>gcp</a>, <a class='category' href='/blog/categories/nginx/'>nginx</a>, <a class='category' href='/blog/categories/rails/'>rails</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/unicorn/'>unicorn</a>
   
 </span>
 
@@ -174,7 +210,7 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/" >Tweet</a>
   
   
   
@@ -185,10 +221,8 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2017/10/17/continous-integration-using-travis/" title="Previous Post: Continous Integration using Travis CI">&laquo; Continous Integration using Travis CI</a>
+        <a class="basic-alignment left" href="/blog/2018/05/29/delayed-job-with-recurring-option/" title="Previous Post: delayed job with recurring option">&laquo; delayed job with recurring option</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2017/11/14/create-a-blogging-site-using-octopress-and-github/" title="Next Post: Create a Blog with Octopress">Create a Blog with Octopress &raquo;</a>
       
     </p>
   </footer>
@@ -306,8 +340,8 @@ We can select linux, IOS, or custom host in circle CI, For this tutorial I have 
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/';
-        var disqus_url = 'http://anoobbava.github.io/blog/2017/10/24/introduction-to-circle-ci/';
+        var disqus_identifier = 'http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/';
+        var disqus_url = 'http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/';
         var disqus_script = 'embed.js';
       
     (function () {

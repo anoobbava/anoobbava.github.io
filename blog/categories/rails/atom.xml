@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-06-19T18:17:13+05:30</updated>
+  <updated>2018-06-28T16:27:58+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,90 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GCP:3 Install Nginx and Setup Unicorn]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/"/>
+    <updated>2018-06-21T18:15:15+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn</id>
+    <content type="html"><![CDATA[<h2>Introduction</h2>
+
+<p>Hi All, this is the 3rd post of our deployment tool, so far we have covered the Setup for instance and installing ruby and postgres. Now what we want is to install the Nginx and Unicorn. Nginx is our App server and Unicorn is our web server. We are Not going to explain about the concepts of nginx and Unicorn; instead we used these tools to deploy our App.We already had a staging server, we used that to setup and installation.</p>
+
+<h3>A little House keeping</h3>
+
+<p>Image of the staging server is running.</p>
+
+<p><img src="/images/gcp3/1.png" width="600" height="400"></p>
+
+<p>terminal connection in staging server</p>
+
+<p><img src="/images/gcp3/2.png" width="600" height="400"></p>
+
+<h3>Setup Nginx</h3>
+
+<pre><code>  sudo apt-get install nginx
+</code></pre>
+
+<p><img src="/images/gcp3/3.png" width="600" height="100"></p>
+
+<p>Now Check the nginx status using</p>
+
+<pre><code>  sudo service nginx status
+</code></pre>
+
+<p><img src="/images/gcp3/4.png" width="600" height="100"></p>
+
+<p>other commands</p>
+
+<p>to restart nginx</p>
+
+<pre><code>sudo service nginx restart
+</code></pre>
+
+<p>to stop the nginx</p>
+
+<pre><code>  sudo service nginx stop
+</code></pre>
+
+<p>to start the nginx</p>
+
+<pre><code>  sudo service nginx start
+</code></pre>
+
+<p>here we are not configuring the nginx right now, we will do that later.</p>
+
+<h3>Installing Unicorn</h3>
+
+<p> Like I already said, we are using the unicorn as app server,by default puma is
+the development server with Rails 5.X.X.</p>
+
+<p>1.add the unicorn gem to production group
+<code>
+  gem 'unicorn'
+</code>
+<img src="/images/gcp3/5.png" width="400" height="100"></p>
+
+<ol>
+<li>add the unicorn configuration file in config/ path</li>
+</ol>
+
+
+<p><img src="/images/gcp3/6.png" width="800" height="100"></p>
+
+<p>Consider only the unicorn.rb file only.The total scripts are added below for
+verification, Like I already said, there are a lot of configurations are there.
+Just google it for details.</p>
+
+<script src="https://gist.github.com/anoobbava/cb5b1fa5a71f73a204a6c51ea1e03c08.js"></script>
+
+
+<p>3.commit these code changes to our code base, since I have already commit those,
+ I don&rsquo;t want do it again.
+I know, it is only a short blog, we just covered here, will explained about
+deployment using mina in the next blog,!!promise</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Delayed Job With Recurring Option]]></title>
@@ -303,7 +387,8 @@ end
 
 <h4>connect gpg keys</h4>
 
-<pre><code>    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+<pre><code>   sudo apt-get install gnupg2 -y
+  gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
 </code></pre>
 
 <p>  <img src="/images/series2/2.png" width="800" height="400"></p>
@@ -640,172 +725,6 @@ in all your open shell windows, in rare cases you need to reopen all shell windo
 We can select linux, IOS, or custom host in circle CI, For this tutorial I have used the linux plan, hobbyist one. We can use containers.</p>
 
 <p><img src="/images/circleci/circle_all_test_passed.png" width="800" height="300"></p>
-
-<p></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Continous Integration Using Travis CI]]></title>
-    <link href="http://anoobbava.github.io/blog/2017/10/17/continous-integration-using-travis/"/>
-    <updated>2017-10-17T23:57:58+05:30</updated>
-    <id>http://anoobbava.github.io/blog/2017/10/17/continous-integration-using-travis</id>
-    <content type="html"><![CDATA[<h2>Why Travis CI</h2>
-
-<p>Before you start in to our CI, one must understand what is CI and why the CI is going to help us the development and what is a <em>DevOps</em>.</p>
-
-<p><img src="/images/travis_logo.png" width="600" height="300"></p>
-
-<h2>DevOps</h2>
-
-<ul>
-<li>Is a combination of cultural philosophies.</li>
-<li>combined to do deviler the products at High Speed.</li>
-<li>development and operations teams are no longer &ldquo;siloed.&rdquo;(AWS)</li>
-<li>Technology is in path we can minimise the effort and reduce the bugs from the existing system.</li>
-<li>DevOps help us to achive better results in minimal Time.</li>
-<li>when Continous Integration and Continous Delivery makes us to reduce the development time.</li>
-</ul>
-
-
-<!-- ![devops](images/travis_devops.jpeg) -->
-
-
-<p><img src="/images/travis_devops.jpeg" width="500" height="300"></p>
-
-<h2>CI(Continous Integration)</h2>
-
-<ul>
-<li>Is a development practice.</li>
-<li>requires developers to share the code to a common repository.</li>
-<li>Each code update is tested by automated build.</li>
-<li>if only the automated build is succeeded, then the code is updated to the system.</li>
-<li>we have Travis CI, Circle CI for this task.</li>
-</ul>
-
-
-<h2>Travis CI intro</h2>
-
-<ul>
-<li>Simple and powerful tool for the CI.</li>
-<li>Always free for the Open source repository.</li>
-<li>Test and deploy with Confidence.(motto)</li>
-<li><a href="https://www.travis-ci.org/">go to Travis</a></li>
-<li>facebook and Rails are using this.</li>
-</ul>
-
-
-<h3>workflow</h3>
-
-<!-- ![work flow](images/travis_work_flow.png) -->
-
-
-<p><img src="/images/travis_work_flow.png" width="1000" height="800"></p>
-
-<h3>PR work flow</h3>
-
-<!-- ![PR flow](images/travis_pr_workflow.png)  -->
-
-
-<p><img src="/images/travis_pr_workflow.png" width="1000" height="800"></p>
-
-<h2>prerequisites</h2>
-
-<ul>
-<li>Active Github Account.</li>
-<li>Need to link to Github repo with Travis CI.</li>
-<li>test coverage for system.</li>
-</ul>
-
-
-<p>Here we are testing for Ruby on rails.To test our project has test coverage we are using the simplecov gem.Testing using SimpleCov is explained in this <a href="https://anoobbava.wordpress.com/2017/10/03/find-test-coverage-locally/">link</a></p>
-
-<!-- ![simple cov](images/travis_simple_cov.png) -->
-
-
-<p><img src="/images/travis_simple_cov.png" width="1000" height="800"></p>
-
-<h2>Back in Action</h2>
-
-<p>Next thing what we do is to Login with Github</p>
-
-<!-- ![github login](images/travis_sigin-with-gituhb.png) -->
-
-
-<p><img src="/images/travis_sigin-with-gituhb.png" width="500" height="200"></p>
-
-<p>All the gitHub Repo&rsquo;s are synched to the Travis-CI.Now Turn ON the Switch against the Repos. We need to update a YML file for travis to automate the testing.There is an online tool to validate the Travis YML using this <a href="https://lint.travis-ci.org/">link</a>.Right now we are discussing only the simple ones for start.</p>
-
-<h2>Sample YML</h2>
-
-<p>In order to function the Travis and install the depandancies, need a config file. travis.yml is that kind of file will help us to implement that feature. Below is sample file. There are other numerous configs, here is the basic to start and running.</p>
-
-<script src="https://gist.github.com/anoobbava/712777537f3d2653db2819b5add3402c.js"></script>
-
-
-<p>Mentioned only the Ruby and the Version. Also before starting our testing, we need to setup a test database.The reason is we don&rsquo;t want to test the production dB by any chance. Now comes the script part, we are migrating the database to the latest structure and running the rspecs.I have used the codeclimate.</p>
-
-<h2>Why Codeclimate</h2>
-
-<p>codeclimate is a code analysis engine will help to check the code has any issues using gems like breakman and rubocop.Also it has built in analysis engine will help us to analyse the code test coverage and also numerous features like badge for our GitHub account. signup using your Github and authorise access codeclimate to our repo. An advantage is that for opensource repo; the codeclimate is free for lifetime, Cool and Awesome right, thanks to codeclimate for their services.
-Login to codeclimate account and goto our repo, settings tab> Test Coverage. there is a token is present. This token is a link between Travis CI and codeclimate.
-<img src="/images/travis_test_coverage_cc.png" width="1000" height="800">
-Now see the magic, login to our travis account, goto our project> more options > settings > Environment Variables
-<img src="/images/travis_environment.png" width="1000" height="800"></p>
-
-<p>create a new environment variable CODECLIMATE_REPO_TOKEN and copy the value from the codeclimate account.</p>
-
-<p>All Set, now only simple task is copy the same token to the .travis.yml file also where XX marked.</p>
-
-<p>note : I am taking the images from my another project for clarity, do not need to confuse with that :D</p>
-
-<script src="https://gist.github.com/anoobbava/79bfabda8e9ef4fdf35f75161920d0ae.js"></script>
-
-
-<p>Dont forget to add this gems our test group.</p>
-
-<p>checkout the below the code if any doubts with the spec_helper.</p>
-
-<script src="https://gist.github.com/anoobbava/e197d468b7f8d8cc3e404fed9ced1b38.js"></script>
-
-
-<p>. Next is commit this code and push to master. We can config the travis to run only at the time of PR(Settings of Travis CI corresponding project).
-Need to check the settings of the travis-ci of particular repo, like when the build started or start build only when the yml is present like that.</p>
-
-<!-- ![Travis config](images/travis_settings.png) -->
-
-
-<p><img src="/images/travis_settings.png" width="800" height="200"></p>
-
-<h4>Now it is check-in time.Add the code and made a PR</h4>
-
-<!-- ![checkin the code](images/travis_checkin.png) -->
-
-
-<p><img src="/images/travis_checkin.png" width="600" height="200"></p>
-
-<h4>After made PR, the Travis-CI is analysing the code</h4>
-
-<!-- ![travis pr checking](images/travis_pr_checking.png) -->
-
-
-<p><img src="/images/travis_checkin.png" width="600" height="200"></p>
-
-<h4>we can see the status of PR by clicking on the see details from gitHub page.</h4>
-
-<!-- ![travis success](images/travis_success.png) -->
-
-
-<p><img src="/images/travis_success.png" width="600" height="200"></p>
-
-<h4>Hooray, all success, now we can see the detailed log for details.</h4>
-
-<!-- ![travis log](images/travis_log.png) -->
-
-
-<p><img src="/images/travis_log.png" width="800" height="300"></p>
-
-<p>Image courtesy: <a href="https://www.travis-ci.org/">travis</a></p>
 
 <p></p>
 ]]></content>

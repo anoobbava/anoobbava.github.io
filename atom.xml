@@ -4,7 +4,7 @@
   <title><![CDATA[Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-06-19T18:17:13+05:30</updated>
+  <updated>2018-06-28T16:27:58+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,97 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[GCP:3 Install Nginx and Setup Unicorn]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/"/>
+    <updated>2018-06-21T18:15:15+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn</id>
+    <content type="html"><![CDATA[<h2>Introduction</h2>
+
+<p>Hi All, this is the 3rd post of our deployment tool, so far we have covered the Setup for instance and installing ruby and postgres. Now what we want is to install the Nginx and Unicorn. Nginx is our App server and Unicorn is our web server. We are Not going to explain about the concepts of nginx and Unicorn; instead we used these tools to deploy our App.We already had a staging server, we used that to setup and installation.</p>
+
+<h3>A little House keeping</h3>
+
+<p>Image of the staging server is running.</p>
+
+<p><img src="http://anoobbava.github.io/images/gcp3/1.png" width="600" height="400"></p>
+
+<p>terminal connection in staging server</p>
+
+<p><img src="http://anoobbava.github.io/images/gcp3/2.png" width="600" height="400"></p>
+
+<h3>Setup Nginx</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo apt-get install nginx</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/gcp3/3.png" width="600" height="100"></p>
+
+<p>Now Check the nginx status using</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx status</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/gcp3/4.png" width="600" height="100"></p>
+
+<p>other commands</p>
+
+<p>to restart nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to stop the nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx stop</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to start the nginx</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx start</span></code></pre></td></tr></table></div></figure>
+
+
+<p>here we are not configuring the nginx right now, we will do that later.</p>
+
+<h3>Installing Unicorn</h3>
+
+<p> Like I already said, we are using the unicorn as app server,by default puma is
+the development server with Rails 5.X.X.</p>
+
+<p>1.add the unicorn gem to production group</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  gem 'unicorn'</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="http://anoobbava.github.io/images/gcp3/5.png" width="400" height="100"></p>
+
+<ol>
+<li>add the unicorn configuration file in config/ path</li>
+</ol>
+
+
+<p><img src="http://anoobbava.github.io/images/gcp3/6.png" width="800" height="100"></p>
+
+<p>Consider only the unicorn.rb file only.The total scripts are added below for
+verification, Like I already said, there are a lot of configurations are there.
+Just google it for details.</p>
+
+<script src="https://gist.github.com/anoobbava/cb5b1fa5a71f73a204a6c51ea1e03c08.js"></script>
+
+
+<p>3.commit these code changes to our code base, since I have already commit those,
+ I don&rsquo;t want do it again.
+I know, it is only a short blog, we just covered here, will explained about
+deployment using mina in the next blog,!!promise</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Delayed Job With Recurring Option]]></title>
@@ -348,7 +439,9 @@ path: <em>lib/tasks/recurring.rake</em></p>
 <h4>connect gpg keys</h4>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>   sudo apt-get install gnupg2 -y
+</span><span class='line'>  gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3</span></code></pre></td></tr></table></div></figure>
 
 
 <p>  <img src="http://anoobbava.github.io/images/series2/2.png" width="800" height="400"></p>
