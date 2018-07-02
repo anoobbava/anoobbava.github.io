@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>http://anoobbava.github.io/blog/2018/06/28/deployment-using-mina/</loc>
+<lastmod>2018-06-28T21:18:28+05:30</lastmod>
+</url>
+<url>
 <loc>http://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/</loc>
 <lastmod>2018-06-21T18:15:15+05:30</lastmod>
 </url>
@@ -95,15 +99,18 @@
 <loc>http://anoobbava.github.io/blog/categories/deployment/</loc>
 </url>
 <url>
-<loc>http://anoobbava.github.io/blog/categories/delayed-job/</loc>
+<loc>http://anoobbava.github.io/blog/categories/gcp/</loc>
 </url>
 <url>
-<loc>http://anoobbava.github.io/blog/categories/gcp/</loc>
+<loc>http://anoobbava.github.io/blog/categories/delayed-job/</loc>
 </url>
 <url>
 <loc>http://anoobbava.github.io/blog/categories/nginx/</loc>
 </url>
 <url>
 <loc>http://anoobbava.github.io/blog/categories/unicorn/</loc>
+</url>
+<url>
+<loc>http://anoobbava.github.io/blog/categories/mina/</loc>
 </url>
 </urlset>

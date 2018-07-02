@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mina | Awesome Web Blog]]></title>
+  <link href="http://anoobbava.github.io/blog/categories/mina/atom.xml" rel="self"/>
+  <link href="http://anoobbava.github.io/"/>
+  <updated>2018-07-02T20:18:17+05:30</updated>
+  <id>http://anoobbava.github.io/</id>
+  <author>
+    <name><![CDATA[Anoob Bava]]></name>
+    <email><![CDATA[anoob.bava@gmail.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GCP:4 Deployment Using Mina]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/06/28/deployment-using-mina/"/>
+    <updated>2018-06-28T21:18:28+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/06/28/deployment-using-mina</id>
+    <content type="html"><![CDATA[<h2>Introduction</h2>
+
+<p>This is the last blog which deals with the GCP deployment, here our main area of
+topic is the mina &ldquo;a blazing fast deployment tool&rdquo;.Which is executed as a
+Rake.Also need to install and setup is pretty, no worries. Advantage is that we
+check-in the code to the github.Only the place is the config/deploy.rb.Also we
+can implement DRY principle to the deployment script.Which means;we can use the
+same script to deploy the app to staging, QA and even Production.</p>
+
+<p><img src="/images/mina/1.png" width="400" height="100"></p>
+
+<p><a href="https://github.com/mina-deploy/mina">mina github link</a></p>
+
+<h2>How the deployment process done ??</h2>
+
+<p> We are dividing the deployment to below section to easily understand and
+deployment.</p>
+
+<ol>
+<li>setup and install mina gem</li>
+<li>mina Rake</li>
+<li>script to deploy</li>
+<li>running the Rake.</li>
+<li>setup nginx and unicorn</li>
+<li>known issues while occured in the deployment and fixing.</li>
+</ol>
+
+
+<h3>1.Setup and install mina gem</h3>
+
+<p><img src="/images/mina/2.png" width="600" height="100"></p>
+
+<p>Add the below gem to the development group.</p>
+
+<pre><code>  gem 'mina', '~&gt; 1.2', '&gt;= 1.2.3'
+</code></pre>
+
+<p>Now what we need to add is the mina-unicorn gem, this will used to deploy
+unicorn with mina.</p>
+
+<pre><code>  gem 'mina-unicorn', '~&gt; 2.0'
+</code></pre>
+
+<p>then do</p>
+
+<pre><code>  bundle install
+</code></pre>
+
+<h3>2.mina Rake</h3>
+
+<p>mina works like a rake task.There is a another command</p>
+
+<pre><code>  mina init
+</code></pre>
+
+<p>it will create the configuration file in the config/deploy.rb</p>
+
+<p><img src="/images/mina/3.png" width="400" height="100"></p>
+
+<p>Hooray, A major part is done, now we need to add the tasks we are going to use
+in the <em>deploy.rb</em>
+You can use your own tasks, based on the taste, but i would like to follow the
+old practices like the setup and deploy</p>
+
+<p><em>setup</em></p>
+
+<p>In this rake, we are going to deals with the basic details like creating the
+folders, creating the temp folders, etc.</p>
+
+<p><em>deploy</em></p>
+
+<p>This rake mainly deals with clone the app and kill the pid, bundle install, migrate the app, migrate, precompile the assets.</p>
+
+<h3>3.mina script</h3>
+
+<p>deploy.rb is the heart of the mina tool.We can configure that based on our requirement.I will give you basic explanation about the each of the commands here and updated the basic skeleton of the deploy.rb and also for verification, will updated with my own deploy.rb which is used in my blog_app.</p>
+
+<p><em>skeleton of the deploy.rb</em></p>
+
+<script src="https://gist.github.com/anoobbava/905c8aa332078d9ee4128e6b312484b1.js"></script>
+
+
+<p><em>copy of my original deploy.rb file</em></p>
+
+<script src="https://gist.github.com/anoobbava/2240c4066d39db1cebe3b787ad37e630.js"></script>
+
+
+<p>Now our scripts are done.Copy this file into your app/config/deploy.rb file and</p>
+
+<p>run the commands below,</p>
+
+<h3>4.Running the Rake</h3>
+
+<p>Before running the rake, ensure that you are added the<em> mina gem and mina-unicorn</em>
+and bundle installed.</p>
+
+<p>first run the command</p>
+
+<pre><code>  mina setup
+</code></pre>
+
+<p><img src="/images/mina/4.png" width="600" height="200"></p>
+
+<p>Now the setup execution is completion is success, there is nothing to worry in
+this, now we are moving to the deploy command.</p>
+
+<pre><code>  mina deploy
+</code></pre>
+
+<p><img src="/images/mina/5.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/6.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/7.png" width="900" height="400"></p>
+
+<p>ah!!, We got the first error, that issue is because we don&rsquo;t specify the database
+and the connector, then user name and password in the path.In order to do that,
+go to our server terminal</p>
+
+<p><img src="/images/mina/8.png" width="800" height="400"></p>
+
+<p>Now we go to the app path , here it is blog_app/</p>
+
+<p><img src="/images/mina/9.png" width="600" height="100"></p>
+
+<p>Now go to the blog_app/ folder go to the <em>shared/config/</em> there is a file called
+the database.yml and add the connection details there.</p>
+
+<pre><code>staging:
+  adapter: postgresql
+  encoding: unicode
+  database: blog_app_staging
+  pool: 5
+  host: localhost
+  username: blog_user
+  password: password
+</code></pre>
+
+<p><img src="/images/mina/10.png" width="600" height="100"></p>
+
+<p>ah!, we got another error, that error comes because there is no database
+configured.It is possible to create the database from the mina tool;but we will
+do via console and we will explain that in another blog.</p>
+
+<p><img src="/images/mina/11.png" width="900" height="400"></p>
+
+<p>Now, we will create a database by logging to the server and using the below
+command</p>
+
+<pre><code>  sudo -i -u postgres
+</code></pre>
+
+<p>then using the below command, generate the database</p>
+
+<pre><code>  createdb databasename
+</code></pre>
+
+<p><img src="/images/mina/12.png" width="600" height="100"></p>
+
+<p>Next is grant access to the user to the new database.</p>
+
+<pre><code>  grant all privileges on database databasename to username;
+</code></pre>
+
+<p><img src="/images/mina/13.png" width="900" height="400"></p>
+
+<p>Please check the above image before executing the above command.</p>
+
+<p>Now again will do the <em>mina deploy</em></p>
+
+<p><img src="/images/mina/14.png" width="900" height="400" title="" ></p>
+
+<p>Awesome, we are good to go, our app is deployed,but it is not for accessing our
+browser, need to do some tweaks, Great working guys.</p>
+
+<h3>5.setup nginx and unicorn</h3>
+
+<p>Now, I want to check whether the nginx can be accessible via ip-address.</p>
+
+<p>just go to ip-address in the browser,</p>
+
+<p><img src="/images/mina/15.png" width="600" height="300"></p>
+
+<p>Awesome, you got the output, now only some tweak is needed.</p>
+
+<p>first update the nginx configuration with below configuration, it is normal
+config, only we need to know about the pid file and error logs.</p>
+
+<script src="https://gist.github.com/anoobbava/5d8bb925578412b3b3f1e500a68010e5.js"></script>
+
+
+<p>now copy the config to the <em>/etc/nginx/sites-enabled/default</em> file.</p>
+
+<p>then restart the nginx using the</p>
+
+<pre><code>  sudo service nginx restart
+</code></pre>
+
+<p><img src="/images/mina/16.png" width="900" height="400"></p>
+
+<p>now nginx is okay, please check the browser we are hitting and also check the
+log if any errors are happening.Log will be in the below path</p>
+
+<p><em>/var/log/nginx/error.log</em> and <em>/var/log/nginx/access.log</em></p>
+
+<p>Awesome!!, it is hitting the nginx, but  the page is not loaded, so the issue is
+with the unicorn, we will check the unicorn logs for this.</p>
+
+<p>unicorn log will be in the <em>blog_app/shared/log/unicorn.stderr.log</em></p>
+
+<p><img src="/images/mina/17.png" width="900" height="400" title="" ></p>
+
+<p>tailing this error will reveal the real issue (ie tail -f nicorn.stderr.log)</p>
+
+<p><img src="/images/mina/18.png" width="900" height="400"></p>
+
+<p>cool, the error is because, we have not set the secret key base, in the
+secrets.yml, need to set that and then proceed.</p>
+
+<p><img src="/images/mina/19.png" width="900" height="400"></p>
+
+<p>by running the below command from the current path in the server console,</p>
+
+<pre><code>  bundle exec rake secret
+</code></pre>
+
+<p>then update the command in the <em>config/shared/secrets.yml</em> with like below</p>
+
+<p><img src="/images/mina/20.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/21.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/22.png" width="900" height="400"></p>
+
+<p>the reason for staging, we are deployed to staging server.</p>
+
+<p>Now, repeat the steps like we already done</p>
+
+<ol>
+<li><p>restart the nginx</p></li>
+<li><p>check the status of the nginx</p></li>
+<li><p>mina deploy from the project terminal(not from the GCP terminal!!!)</p></li>
+<li><p>tail -f /var/log/nginx/access.log to check it is hitting or not!!!</p></li>
+<li><p>go to the ip-adress in the browser,</p></li>
+</ol>
+
+
+<p><img src="/images/mina/23.png" width="900" height="400"></p>
+
+<p>hooray, we are all done, now we need to explore additional options like,how to
+store the images, login issues etc. Please comment me if any issues happend</p>
+]]></content>
+  </entry>
+  
+</feed>

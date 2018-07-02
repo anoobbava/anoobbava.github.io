@@ -9,7 +9,8 @@
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="Introduction Hi All, this is the 3rd post of our deployment tool, so far we have covered the Setup for instance and installing ruby and postgres. Now &hellip;">
+  <meta name="description" content="Introduction This is the last blog which deals with the GCP deployment, here our main area of
+topic is the mina &ldquo;a blazing fast deployment tool &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +77,307 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/06/28/deployment-using-mina/">GCP:4 Deployment Using Mina</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2018-06-28T21:18:28+05:30'><span class='date'><span class='date-month'>Jun</span> <span class='date-day'>28</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>9:18 pm</span></time>
+        
+           | <a href="/blog/2018/06/28/deployment-using-mina/#disqus_thread"
+             data-disqus-identifier="http://anoobbava.github.io/blog/2018/06/28/deployment-using-mina/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Introduction</h2>
+
+<p>This is the last blog which deals with the GCP deployment, here our main area of
+topic is the mina &ldquo;a blazing fast deployment tool&rdquo;.Which is executed as a
+Rake.Also need to install and setup is pretty, no worries. Advantage is that we
+check-in the code to the github.Only the place is the config/deploy.rb.Also we
+can implement DRY principle to the deployment script.Which means;we can use the
+same script to deploy the app to staging, QA and even Production.</p>
+
+<p><img src="/images/mina/1.png" width="400" height="100"></p>
+
+<p><a href="https://github.com/mina-deploy/mina">mina github link</a></p>
+
+<h2>How the deployment process done ??</h2>
+
+<p> We are dividing the deployment to below section to easily understand and
+deployment.</p>
+
+<ol>
+<li>setup and install mina gem</li>
+<li>mina Rake</li>
+<li>script to deploy</li>
+<li>running the Rake.</li>
+<li>setup nginx and unicorn</li>
+<li>known issues while occured in the deployment and fixing.</li>
+</ol>
+
+
+<h3>1.Setup and install mina gem</h3>
+
+<p><img src="/images/mina/2.png" width="600" height="100"></p>
+
+<p>Add the below gem to the development group.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  gem 'mina', '~&gt; 1.2', '&gt;= 1.2.3'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now what we need to add is the mina-unicorn gem, this will used to deploy
+unicorn with mina.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  gem 'mina-unicorn', '~&gt; 2.0'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then do</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  bundle install</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>2.mina Rake</h3>
+
+<p>mina works like a rake task.There is a another command</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  mina init</span></code></pre></td></tr></table></div></figure>
+
+
+<p>it will create the configuration file in the config/deploy.rb</p>
+
+<p><img src="/images/mina/3.png" width="400" height="100"></p>
+
+<p>Hooray, A major part is done, now we need to add the tasks we are going to use
+in the <em>deploy.rb</em>
+You can use your own tasks, based on the taste, but i would like to follow the
+old practices like the setup and deploy</p>
+
+<p><em>setup</em></p>
+
+<p>In this rake, we are going to deals with the basic details like creating the
+folders, creating the temp folders, etc.</p>
+
+<p><em>deploy</em></p>
+
+<p>This rake mainly deals with clone the app and kill the pid, bundle install, migrate the app, migrate, precompile the assets.</p>
+
+<h3>3.mina script</h3>
+
+<p>deploy.rb is the heart of the mina tool.We can configure that based on our requirement.I will give you basic explanation about the each of the commands here and updated the basic skeleton of the deploy.rb and also for verification, will updated with my own deploy.rb which is used in my blog_app.</p>
+
+<p><em>skeleton of the deploy.rb</em></p>
+
+<script src="https://gist.github.com/anoobbava/905c8aa332078d9ee4128e6b312484b1.js"></script>
+
+
+<p><em>copy of my original deploy.rb file</em></p>
+
+<script src="https://gist.github.com/anoobbava/2240c4066d39db1cebe3b787ad37e630.js"></script>
+
+
+<p>Now our scripts are done.Copy this file into your app/config/deploy.rb file and</p>
+
+<p>run the commands below,</p>
+
+<h3>4.Running the Rake</h3>
+
+<p>Before running the rake, ensure that you are added the<em> mina gem and mina-unicorn</em>
+and bundle installed.</p>
+
+<p>first run the command</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  mina setup</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/mina/4.png" width="600" height="200"></p>
+
+<p>Now the setup execution is completion is success, there is nothing to worry in
+this, now we are moving to the deploy command.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  mina deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/mina/5.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/6.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/7.png" width="900" height="400"></p>
+
+<p>ah!!, We got the first error, that issue is because we don&rsquo;t specify the database
+and the connector, then user name and password in the path.In order to do that,
+go to our server terminal</p>
+
+<p><img src="/images/mina/8.png" width="800" height="400"></p>
+
+<p>Now we go to the app path , here it is blog_app/</p>
+
+<p><img src="/images/mina/9.png" width="600" height="100"></p>
+
+<p>Now go to the blog_app/ folder go to the <em>shared/config/</em> there is a file called
+the database.yml and add the connection details there.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>staging:
+</span><span class='line'>  adapter: postgresql
+</span><span class='line'>  encoding: unicode
+</span><span class='line'>  database: blog_app_staging
+</span><span class='line'>  pool: 5
+</span><span class='line'>  host: localhost
+</span><span class='line'>  username: blog_user
+</span><span class='line'>  password: password</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/mina/10.png" width="600" height="100"></p>
+
+<p>ah!, we got another error, that error comes because there is no database
+configured.It is possible to create the database from the mina tool;but we will
+do via console and we will explain that in another blog.</p>
+
+<p><img src="/images/mina/11.png" width="900" height="400"></p>
+
+<p>Now, we will create a database by logging to the server and using the below
+command</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo -i -u postgres</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then using the below command, generate the database</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  createdb databasename</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/mina/12.png" width="600" height="100"></p>
+
+<p>Next is grant access to the user to the new database.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  grant all privileges on database databasename to username;</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/mina/13.png" width="900" height="400"></p>
+
+<p>Please check the above image before executing the above command.</p>
+
+<p>Now again will do the <em>mina deploy</em></p>
+
+<p><img src="/images/mina/14.png" width="900" height="400" title="" ></p>
+
+<p>Awesome, we are good to go, our app is deployed,but it is not for accessing our
+browser, need to do some tweaks, Great working guys.</p>
+
+<h3>5.setup nginx and unicorn</h3>
+
+<p>Now, I want to check whether the nginx can be accessible via ip-address.</p>
+
+<p>just go to ip-address in the browser,</p>
+
+<p><img src="/images/mina/15.png" width="600" height="300"></p>
+
+<p>Awesome, you got the output, now only some tweak is needed.</p>
+
+<p>first update the nginx configuration with below configuration, it is normal
+config, only we need to know about the pid file and error logs.</p>
+
+<script src="https://gist.github.com/anoobbava/5d8bb925578412b3b3f1e500a68010e5.js"></script>
+
+
+<p>now copy the config to the <em>/etc/nginx/sites-enabled/default</em> file.</p>
+
+<p>then restart the nginx using the</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  sudo service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="/images/mina/16.png" width="900" height="400"></p>
+
+<p>now nginx is okay, please check the browser we are hitting and also check the
+log if any errors are happening.Log will be in the below path</p>
+
+<p><em>/var/log/nginx/error.log</em> and <em>/var/log/nginx/access.log</em></p>
+
+<p>Awesome!!, it is hitting the nginx, but  the page is not loaded, so the issue is
+with the unicorn, we will check the unicorn logs for this.</p>
+
+<p>unicorn log will be in the <em>blog_app/shared/log/unicorn.stderr.log</em></p>
+
+<p><img src="/images/mina/17.png" width="900" height="400" title="" ></p>
+
+<p>tailing this error will reveal the real issue (ie tail -f nicorn.stderr.log)</p>
+
+<p><img src="/images/mina/18.png" width="900" height="400"></p>
+
+<p>cool, the error is because, we have not set the secret key base, in the
+secrets.yml, need to set that and then proceed.</p>
+
+<p><img src="/images/mina/19.png" width="900" height="400"></p>
+
+<p>by running the below command from the current path in the server console,</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  bundle exec rake secret</span></code></pre></td></tr></table></div></figure>
+
+
+<p>then update the command in the <em>config/shared/secrets.yml</em> with like below</p>
+
+<p><img src="/images/mina/20.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/21.png" width="900" height="400"></p>
+
+<p><img src="/images/mina/22.png" width="900" height="400"></p>
+
+<p>the reason for staging, we are deployed to staging server.</p>
+
+<p>Now, repeat the steps like we already done</p>
+
+<ol>
+<li><p>restart the nginx</p></li>
+<li><p>check the status of the nginx</p></li>
+<li><p>mina deploy from the project terminal(not from the GCP terminal!!!)</p></li>
+<li><p>tail -f /var/log/nginx/access.log to check it is hitting or not!!!</p></li>
+<li><p>go to the ip-adress in the browser,</p></li>
+</ol>
+
+
+<p><img src="/images/mina/23.png" width="900" height="400"></p>
+
+<p>hooray, we are all done, now we need to explore additional options like,how to
+store the images, login issues etc. Please comment me if any issues happend</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -536,7 +838,7 @@ path: <em>lib/tasks/recurring.rake</em></p>
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2/">Install Ruby and Postgres to GCP:Series2</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2/">GCP:2 Install Ruby and Postgres</a></h1>
     
     
       <p class="meta">
@@ -708,6 +1010,8 @@ in all your open shell windows, in rare cases you need to reopen all shell windo
 <p>this is the end of series, will post more in another series</p>
 
 <p>all set. thanks guys, comment if any error or doubt happend.</p>
+
+<p><a href = "https://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/">install and setup unicorn GCP3 </a></p>
 </div>
   
   
@@ -720,7 +1024,7 @@ in all your open shell windows, in rare cases you need to reopen all shell windo
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2018/04/11/rails-app-deployment-using-gcp/">Rails App Deployment Using GCP:Series 1</a></h1>
+      <h1 class="entry-title"><a href="/blog/2018/04/11/rails-app-deployment-using-gcp/">GCP:1 Rails App Deployment Using GCP</a></h1>
     
     
       <p class="meta">
@@ -1554,214 +1858,6 @@ Every dyno in your application will belong to one of the process types, and will
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2018/02/27/implement-rspec-in-ror-project/">Implement Rspec in ROR Project</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2018-02-27T16:44:30+05:30'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>4:44 pm</span></time>
-        
-           | <a href="/blog/2018/02/27/implement-rspec-in-ror-project/#disqus_thread"
-             data-disqus-identifier="http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Rspec, A Brief</h2>
-
-<p> Below is the some syntaxes and errors i have encountered when using rspec, I have shared here for every ones' use.</p>
-
-<h3>install rspec</h3>
-
-<p>  install the rspec gem using the below command</p>
-
-<pre><code class="``">  gem install rspec
-</code></pre>
-
-<h3>create a test Group</h3>
-
-<pre><code class="``">  group :test do
-    gem 'codeclimate-test-reporter', '~&gt; 1.0.0'
-    gem 'database_cleaner', '~&gt; 1.5'
-    gem 'factory_bot', '~&gt; 4.8', '&gt;= 4.8.2'
-    gem 'factory_bot_rails'
-    gem 'faker', '~&gt; 1.6.1'
-    gem 'rails-controller-testing', '~&gt; 0.0.3'
-    gem 'rspec', '~&gt; 3.6'
-    gem 'shoulda-matchers'
-    gem 'simplecov'
-  end
-</code></pre>
-
-<p>  the gem factory_girl is deprecated right now, so we are using the factory_bot instead.</p>
-
-<h3>Add rspec-rails to the Development Group</h3>
-
-<pre><code class="``">  gem 'rspec-rails'
-</code></pre>
-
-<p>  Now we need to add the development, test group</p>
-
-<h3>Intialise the folders for Rspec</h3>
-
-<p>  achieved using the below command</p>
-
-<pre><code class="```">   rspec --init
-</code></pre>
-
-<h3>Require rspec/rails to spec helper</h3>
-
-<pre><code class="``">  require 'rspec/rails'
-</code></pre>
-
-<p>   need to add above command to the spec_helper</p>
-
-<h3>You are Go</h3>
-
-<p>  All set, now delete the test/ folder in the project and create the specs in models and ccontrollers</p>
-
-<p>  to generate rspec file for existing controller</p>
-
-<pre><code class="``">  rails generate rspec:controller Controller_name
-</code></pre>
-
-<p>  to generate rspec file for exising model</p>
-
-<pre><code class="``">  rails generate rspec:model model_name
-</code></pre>
-
-<h3>setup test database</h3>
-
-<p>  Do the below step only if you don&rsquo;t have the test database created</p>
-
-<pre><code class="``">  rake db:test:prepare
-</code></pre>
-
-<h3>Why we need the database cleaner</h3>
-
-<p>  Is a useful tool to clear the dB from the test database. for that need to use the database_cleaner gem in test group.</p>
-
-<ol>
-<li><p>add the gem</p>
-
-<pre><code>gem 'database_cleaner'
-</code></pre></li>
-<li><p>require in spec_helper</p>
-
-<pre><code>require 'database_cleaner'
-</code></pre></li>
-<li><p>add the tables where clearing is needed</p>
-
-<pre><code>DatabaseCleaner.strategy = :truncation, { :only =&gt; %w[users] }
-</code></pre>
-
-<p>here users is one table, multiple tables can be added using comma</p></li>
-<li>Call the action</li>
-</ol>
-
-
-<p>  add the below line where we need to clean the dB</p>
-
-<pre><code class="``">  DatabaseCleaner.clean
-</code></pre>
-
-<p>  Note: in psql manually create test database  and do rake db:migrate RAILS_ENV=test</p>
-
-<h3>Important Points to  remember</h3>
-
-<ol>
-<li>To clear all the data</li>
-</ol>
-
-
-<p>  add the below line to the spec_helper</p>
-
-<pre><code class="``">  config.after :all do
-   ActiveRecord::Base.subclasses.each(&amp;:delete_all)
-  end
-</code></pre>
-
-<p>  2.To view the console of test dB</p>
-
-<pre><code class="``">  rails c test
-</code></pre>
-
-<ol>
-<li><p>If below Error comes up</p>
-
-<p>undefined method `sign_in' for #&lt;RSpec::Core:</p>
-
-<h2>Solution</h2>
-
-<p>add below line to spec_helper</p>
-
-<pre><code>config.include Devise::TestHelpers, type: :controller
-</code></pre></li>
-<li><p>If below error pops Up</p>
-
-<p> rmed176lt@RMED176LT:~/ror/12-week/wiki_clone$ bundle exec rails generate rspec:install
- Running via Spring preloader in process 10346
- Could not find generator &lsquo;rspec:install&rsquo;. Maybe you meant &lsquo;devise:install&rsquo;, &lsquo;responders:install&rsquo; or &lsquo;simple_form:install&rsquo;
- Run <code>rails generate --help</code> for more options.</p>
-
-<h2> Solution</h2>
-
-<p> <a href="https://stackoverflow.com/questions/39542169/rails-5-could-not-find-generator-rspecinstall/39542170">visit link for SO answer</a></p></li>
-<li><p>If below error pops up</p></li>
-</ol>
-
-
-<p>  1) ArticlesController redirect to user signin
-       Failure/Error: get :index</p>
-
-<pre><code>   NoMethodError:
-     undefined method `get' for #&lt;RSpec::ExampleGroups::ArticlesController:0xb8c4f8c&gt;
-     Did you mean?  gets
-                    gem
-   # ./spec/controllers/articles_controller_spec.rb:6:in `block (2 levels) in &lt;top (required)&gt;'
-</code></pre>
-
-<p>  Finished in 0.00479 seconds (files took 4.41 seconds to load)
-  1 example, 1 failure</p>
-
-<p>  Failed examples:</p>
-
-<p>  rspec ./spec/controllers/articles_controller_spec.rb:5 # ArticlesController redirect to user signin</p>
-
-<h2>  Solution</h2>
-
-<ol>
-<li>need to add require &lsquo;rspec/rails&rsquo; in spec_helper</li>
-<li>if wont work then add below line
-<code>
-config.infer_spec_type_from_file_location!
-</code>
-for me, 2 nd one is not required.</li>
-</ol>
-
-
-<h3>below is sample spec_helper.rb</h3>
-
-<script src="https://gist.github.com/anoobbava/27255d8052d7b8d5ac095f511e6e242b.js"></script>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -1792,6 +1888,10 @@ for me, 2 nd one is not required.</li>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/06/28/deployment-using-mina/">GCP:4 Deployment Using Mina</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/">GCP:3 Install Nginx and Setup Unicorn</a>
       </li>
     
@@ -1800,15 +1900,11 @@ for me, 2 nd one is not required.</li>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2/">Install Ruby and Postgres to GCP:Series2</a>
+        <a href="/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2/">GCP:2 Install Ruby and Postgres</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2018/04/11/rails-app-deployment-using-gcp/">Rails App Deployment Using GCP:Series 1</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/03/28/upload-images-using-cloudinary-in-heroku/">Upload Images Using Cloudinary in Heroku</a>
+        <a href="/blog/2018/04/11/rails-app-deployment-using-gcp/">GCP:1 Rails App Deployment Using GCP</a>
       </li>
     
   </ul>

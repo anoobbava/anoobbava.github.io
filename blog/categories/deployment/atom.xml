@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Deployment | Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/blog/categories/deployment/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-06-28T16:27:58+05:30</updated>
+  <updated>2018-07-02T20:18:17+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Install Ruby and Postgres to GCP:Series2]]></title>
+    <title type="html"><![CDATA[GCP:2 Install Ruby and Postgres]]></title>
     <link href="http://anoobbava.github.io/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2/"/>
     <updated>2018-04-12T15:51:22+05:30</updated>
     <id>http://anoobbava.github.io/blog/2018/04/12/install-ruby-and-postgres-to-gcp-series2</id>
@@ -169,11 +169,13 @@ in all your open shell windows, in rare cases you need to reopen all shell windo
 <p>this is the end of series, will post more in another series</p>
 
 <p>all set. thanks guys, comment if any error or doubt happend.</p>
+
+<p><a href = "https://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/">install and setup unicorn GCP3 </a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Rails App Deployment Using GCP:Series 1]]></title>
+    <title type="html"><![CDATA[GCP:1 Rails App Deployment Using GCP]]></title>
     <link href="http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp/"/>
     <updated>2018-04-11T00:32:23+05:30</updated>
     <id>http://anoobbava.github.io/blog/2018/04/11/rails-app-deployment-using-gcp</id>
