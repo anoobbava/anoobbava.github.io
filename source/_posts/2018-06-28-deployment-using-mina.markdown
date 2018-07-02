@@ -8,11 +8,13 @@ categories: [ruby, GCP, Rails, mina]
 ## Introduction
 
 This is the last blog which deals with the GCP deployment, here our main area of
-topic is the mina "a blazing fast deployment tool".Which is executed as a
-Rake.Also need to install and setup is pretty, no worries. Advantage is that we
-check-in the code to the github.Only the place is the config/deploy.rb.Also we
-can implement DRY principle to the deployment script.Which means;we can use the
-same script to deploy the app to staging, QA and even Production.
+topic is the mina "a blazing fast deployment tool". 
+Which is executed as a Rake. 
+
+Need to install and setup is pretty, no worries.Advantage is that we check-in the code to the github.
+
+Only the place is the config/deploy.rb.Also we can implement DRY principle to the deployment script.
+Which means;we can use the same script to deploy the app to staging, QA and even Production.
 
 {% img /images/mina/1.png 400 100 %}
 
@@ -20,15 +22,13 @@ same script to deploy the app to staging, QA and even Production.
 
 ##How the deployment process done ??
 
- We are dividing the deployment to below section to easily understand and
-deployment.
+ We are dividing the deployment to below section to easily understand and deployment.
 
  1. setup and install mina gem
  2. mina Rake
  3. script to deploy
  4. running the Rake.
  5. setup nginx and unicorn
- 6. known issues while occured in the deployment and fixing.
 
 ### 1.Setup and install mina gem
 
@@ -39,8 +39,7 @@ Add the below gem to the development group.
 ```
   gem 'mina', '~> 1.2', '>= 1.2.3'
 ```
-Now what we need to add is the mina-unicorn gem, this will used to deploy
-unicorn with mina.
+Now what we need to add is the mina-unicorn gem, this will used to deploy unicorn with mina.
 
 ```
   gem 'mina-unicorn', '~> 2.0'
@@ -63,6 +62,7 @@ it will create the configuration file in the config/deploy.rb
 
 Hooray, A major part is done, now we need to add the tasks we are going to use
 in the *deploy.rb*
+
 You can use your own tasks, based on the taste, but i would like to follow the
 old practices like the setup and deploy
 
@@ -77,7 +77,10 @@ This rake mainly deals with clone the app and kill the pid, bundle install, migr
 
 ###3.mina script
 
-deploy.rb is the heart of the mina tool.We can configure that based on our requirement.I will give you basic explanation about the each of the commands here and updated the basic skeleton of the deploy.rb and also for verification, will updated with my own deploy.rb which is used in my blog_app.
+deploy.rb is the heart of the mina tool.
+We can configure that based on our requirement.
+
+I will give you basic explanation about the each of the commands here and updated the basic skeleton of the deploy.rb and also for verification, will updated with my own deploy.rb which is used in my blog_app.
 
 *skeleton of the deploy.rb*
 
@@ -117,7 +120,9 @@ this, now we are moving to the deploy command.
 {% img /images/mina/7.png 900 400 %}
 
 
-ah!!, We got the first error, that issue is because we don't specify the database
+ah!!, We got the first error.
+ 
+That issue is because we don't specify the database
 and the connector, then user name and password in the path.In order to do that,
 go to our server terminal
 
@@ -142,8 +147,9 @@ staging:
 ```
 {% img /images/mina/10.png 600 100 %}
 
-ah!, we got another error, that error comes because there is no database
-configured.It is possible to create the database from the mina tool;but we will
+ah!, we got another error. 
+
+That error comes because there is no database configured. It is possible to create the database from the mina tool;but we will
 do via console and we will explain that in another blog.
 
 {% img /images/mina/11.png 900 400 %}
@@ -255,4 +261,6 @@ Now, repeat the steps like we already done
 {%img /images/mina/23.png 900 400 %}
 
 hooray, we are all done, now we need to explore additional options like,how to
-store the images, login issues etc. Please comment me if any issues happend
+store the images, login issues etc. 
+
+Please comment me if any issues happend
