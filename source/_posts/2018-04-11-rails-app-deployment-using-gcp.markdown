@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "Rails App Deployment using GCP:Series 1"
+title: "GCP:1 Rails App Deployment using GCP"
 date: 2018-04-11 00:32:23 +0530
 comments: true
-categories: [gcloud, Ruby, Rails, Deployment]
+categories: [gcloud, Ruby, Rails, Deployment, GCP]
 ---
 
 ## Deployment using GCP

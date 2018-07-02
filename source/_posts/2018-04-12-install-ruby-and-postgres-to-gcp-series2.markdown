@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "install ruby and postgres to GCP:Series2"
+title: "GCP:2 Install ruby and postgres"
 date: 2018-04-12 15:51:22 +0530
 comments: true
-categories: [gcloud, Ruby, Rails, Deployment]
+categories: [gcloud, Ruby, Rails, Deployment, GCP]
 ---
 
 Hi All, Welcome to series 2, here are explaining about the ruby and Postgres installation to our GCP Server. If you know about that in linux 16.04 version, you can skip this tutorial. this is entirely based on the ubuntu 16.04 LTS machine and not much . I read the digital ocean, GoRails etc to publish this article and use the tehniques explained by them also.
@@ -165,3 +165,5 @@ go to the psql by command
 this is the end of series, will post more in another series
 
 all set. thanks guys, comment if any error or doubt happend.
+
+<a href = "https://anoobbava.github.io/blog/2018/06/21/gcp-3-install-nginx-and-setup-unicorn/">install and setup unicorn GCP3 </a>
