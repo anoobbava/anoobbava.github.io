@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Implement Rspec in ROR Project - Awesome Web Blog</title>
+  <title>Ruby Array Manipulations - Awesome Web Blog</title>
   <meta name="author" content="Anoob Bava">
 
   
-  <meta name="description" content="Rspec, A Brief Below is the some syntaxes and errors i have encountered when using rspec, I have shared here for every ones' use. install rspec &hellip;">
+  <meta name="description" content="We will be discussing some built-in functions in Ruby.Most of them are used to fix the logical challenges in Ruby Programing. select used to filter &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/">
+  <link rel="canonical" href="http://anoobbava.github.io/blog/2018/09/07/ruby-array-manipulations/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Awesome Web Blog" type="application/atom+xml">
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">Implement Rspec in ROR Project</h1>
+      <h1 class="entry-title">Ruby Array Manipulations</h1>
     
     
       <p class="meta">
@@ -88,7 +88,7 @@
 
 
 
-<time class='entry-date' datetime='2018-02-27T16:44:30+05:30'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>4:44 pm</span></time>
+<time class='entry-date' datetime='2018-09-07T19:59:26+05:30'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>7:59 pm</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://anoobbava.github.io">Comments</a>
@@ -98,183 +98,172 @@
   </header>
 
 
-<div class="entry-content"><h2>Rspec, A Brief</h2>
+<div class="entry-content"><p>We will be discussing some built-in functions in Ruby.Most of them are used to fix the logical challenges in Ruby Programing.</p>
 
-<p> Below is the some syntaxes and errors i have encountered when using rspec, I have shared here for every ones' use.</p>
+<h4>select</h4>
 
-<h3>install rspec</h3>
+<ul>
+<li>used to filter the collections.</li>
+<li>return type will be an array</li>
+</ul>
 
-<p>  install the rspec gem using the below command</p>
 
-<pre><code class="``">  gem install rspec
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 2, 3, 4, 5].select{ |i| i &gt; 3 }
+</span><span class='line'>
+</span><span class='line'>  #=&gt; [4, 5]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>detect</h4>
+
+<ul>
+<li>will return the first matched value</li>
+<li>returned value will be a single element</li>
+</ul>
+
+
+<pre><code class="`">  [1, 2, 3, 4, 5].detect{ |i| i &gt; 3 }
+
+  #=&gt; 4
 </code></pre>
 
-<h3>create a test Group</h3>
+<h4>reject</h4>
 
-<pre><code class="``">  group :test do
-    gem 'codeclimate-test-reporter', '~&gt; 1.0.0'
-    gem 'database_cleaner', '~&gt; 1.5'
-    gem 'factory_bot', '~&gt; 4.8', '&gt;= 4.8.2'
-    gem 'factory_bot_rails'
-    gem 'faker', '~&gt; 1.6.1'
-    gem 'rails-controller-testing', '~&gt; 0.0.3'
-    gem 'rspec', '~&gt; 3.6'
-    gem 'shoulda-matchers'
-    gem 'simplecov'
-  end
+<ul>
+<li>will be the opposite of the select</li>
+<li>will be an array</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 2, 3, 4, 5].reject{ |i| i &gt; 3 }
+</span><span class='line'>
+</span><span class='line'>  #=&gt; [1, 2, 3]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>equality operator</h4>
+
+<ul>
+<li>denoted by <strong>===</strong></li>
+<li>more used in the case of Reg ex and range</li>
+</ul>
+
+
+<pre><code class="`">  (1..3) === 2
+
+  #=&gt; true
+
+  (1..3) === 4
+
+  #=&gt; false
+
+  /el/ === 'Hello World'
+
+  #=&gt; false
 </code></pre>
 
-<p>  the gem factory_girl is deprecated right now, so we are using the factory_bot instead.</p>
-
-<h3>Add rspec-rails to the Development Group</h3>
-
-<pre><code class="``">  gem 'rspec-rails'
-</code></pre>
-
-<p>  Now we need to add the development, test group</p>
-
-<h3>Intialise the folders for Rspec</h3>
-
-<p>  achieved using the below command</p>
-
-<pre><code class="```">   rspec --init
-</code></pre>
-
-<h3>Require rspec/rails to spec helper</h3>
-
-<pre><code class="``">  require 'rspec/rails'
-</code></pre>
-
-<p>   need to add above command to the spec_helper</p>
-
-<h3>You are Go</h3>
-
-<p>  All set, now delete the test/ folder in the project and create the specs in models and ccontrollers</p>
-
-<p>  to generate rspec file for existing controller</p>
-
-<pre><code class="``">  rails generate rspec:controller Controller_name
-</code></pre>
-
-<p>  to generate rspec file for exising model</p>
-
-<pre><code class="``">  rails generate rspec:model model_name
-</code></pre>
-
-<h3>setup test database</h3>
-
-<p>  Do the below step only if you don&rsquo;t have the test database created</p>
-
-<pre><code class="``">  rake db:test:prepare
-</code></pre>
-
-<h3>Why we need the database cleaner</h3>
-
-<p>  Is a useful tool to clear the dB from the test database. for that need to use the database_cleaner gem in test group.</p>
-
-<ol>
-<li><p>add the gem</p>
-
-<pre><code>gem 'database_cleaner'
-</code></pre></li>
-<li><p>require in spec_helper</p>
-
-<pre><code>require 'database_cleaner'
-</code></pre></li>
-<li><p>add the tables where clearing is needed</p>
-
-<pre><code>DatabaseCleaner.strategy = :truncation, { :only =&gt; %w[users] }
-</code></pre>
-
-<p>here users is one table, multiple tables can be added using comma</p></li>
-<li>Call the action</li>
-</ol>
+<ul>
+<li>LHS should be Range or REGEX and RHS will be the specific object.</li>
+</ul>
 
 
-<p>  add the below line where we need to clean the dB</p>
+<h4>grep</h4>
 
-<pre><code class="``">  DatabaseCleaner.clean
-</code></pre>
-
-<p>  Note: in psql manually create test database  and do rake db:migrate RAILS_ENV=test</p>
-
-<h3>Important Points to  remember</h3>
-
-<ol>
-<li>To clear all the data</li>
-</ol>
+<ul>
+<li>same use in the case of grep</li>
+</ul>
 
 
-<p>  add the below line to the spec_helper</p>
-
-<pre><code class="``">  config.after :all do
-   ActiveRecord::Base.subclasses.each(&amp;:delete_all)
-  end
-</code></pre>
-
-<p>  2.To view the console of test dB</p>
-
-<pre><code class="``">  rails c test
-</code></pre>
-
-<ol>
-<li><p>If below Error comes up</p>
-
-<p>undefined method `sign_in' for #&lt;RSpec::Core:</p>
-
-<h2>Solution</h2>
-
-<p>add below line to spec_helper</p>
-
-<pre><code>config.include Devise::TestHelpers, type: :controller
-</code></pre></li>
-<li><p>If below error pops Up</p>
-
-<p> rmed176lt@RMED176LT:~/ror/12-week/wiki_clone$ bundle exec rails generate rspec:install
- Running via Spring preloader in process 10346
- Could not find generator &lsquo;rspec:install&rsquo;. Maybe you meant &lsquo;devise:install&rsquo;, &lsquo;responders:install&rsquo; or &lsquo;simple_form:install&rsquo;
- Run <code>rails generate --help</code> for more options.</p>
-
-<h2> Solution</h2>
-
-<p> <a href="https://stackoverflow.com/questions/39542169/rails-5-could-not-find-generator-rspecinstall/39542170">visit link for SO answer</a></p></li>
-<li><p>If below error pops up</p></li>
-</ol>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [6, 14, 28, 47, 12].grep(5..15)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; [6, 14, 12]</span></code></pre></td></tr></table></div></figure>
 
 
-<p>  1) ArticlesController redirect to user signin
-       Failure/Error: get :index</p>
-
-<pre><code>   NoMethodError:
-     undefined method `get' for #&lt;RSpec::ExampleGroups::ArticlesController:0xb8c4f8c&gt;
-     Did you mean?  gets
-                    gem
-   # ./spec/controllers/articles_controller_spec.rb:6:in `block (2 levels) in &lt;top (required)&gt;'
-</code></pre>
-
-<p>  Finished in 0.00479 seconds (files took 4.41 seconds to load)
-  1 example, 1 failure</p>
-
-<p>  Failed examples:</p>
-
-<p>  rspec ./spec/controllers/articles_controller_spec.rb:5 # ArticlesController redirect to user signin</p>
-
-<h2>  Solution</h2>
-
-<ol>
-<li>need to add require &lsquo;rspec/rails&rsquo; in spec_helper</li>
-<li>if wont work then add below line
-<code>
-config.infer_spec_type_from_file_location!
-</code>
-for me, 2 nd one is not required.</li>
-</ol>
+<ul>
+<li>we have an array like [1, &lsquo;a&rsquo;, &lsquo;b&rsquo;, 2]</li>
+<li>if we do the <code>[1, 'a', 'b', 2].map(&amp;:upcase)</code></li>
+<li>will raise an error</li>
+<li>we can fix those by <strong>grep</strong></li>
+</ul>
 
 
-<h3>below is sample spec_helper.rb</h3>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 'a', 'b', 2].grep(String, &:upcase)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; ['A', 'B']</span></code></pre></td></tr></table></div></figure>
 
-<script src="https://gist.github.com/anoobbava/27255d8052d7b8d5ac095f511e6e242b.js"></script>
 
+<h4>sort</h4>
+
+<ul>
+<li>if we have integer and strings in the array .sort command will fail.</li>
+<li>we can clear this issue by using the sort_by method.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ['5', '2', 3, '1'].sort_by(&:to_i)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; ['1', '2', 3, '5']</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>all?</h4>
+
+<ul>
+<li>return true if all values are true</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [2, 4, 6, 8].all?(&:even?)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>any?</h4>
+
+<ul>
+<li>return true if any of the value is true.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [2, 3, 5, 9].any?(&:even?)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>reduce</h4>
+
+<ul>
+<li>create a sum of the array</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 2, 3].reduce(:+)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; 6</span></code></pre></td></tr></table></div></figure>
+
+
+<p>another interested methods are <strong>cycle, next, reverse_cycle </strong></p>
 </div>
 
 
@@ -290,7 +279,7 @@ for me, 2 nd one is not required.</li>
 
 
 
-<time class='entry-date' datetime='2018-02-27T16:44:30+05:30'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>4:44 pm</span></time>
+<time class='entry-date' datetime='2018-09-07T19:59:26+05:30'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2018</span></span> <span class='time'>7:59 pm</span></time>
       
 
 <span class="categories">
@@ -304,7 +293,7 @@ for me, 2 nd one is not required.</li>
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://anoobbava.github.io/blog/2018/09/07/ruby-array-manipulations/" data-via="anoobkbava" data-counturl="http://anoobbava.github.io/blog/2018/09/07/ruby-array-manipulations/" >Tweet</a>
   
   
   
@@ -315,10 +304,8 @@ for me, 2 nd one is not required.</li>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2017/11/14/create-a-blogging-site-using-octopress-and-github/" title="Previous Post: Create a Blog with Octopress">&laquo; Create a Blog with Octopress</a>
+        <a class="basic-alignment left" href="/blog/2018/06/28/deployment-using-mina/" title="Previous Post: GCP:4 deployment using mina">&laquo; GCP:4 deployment using mina</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2018/03/15/implement-likes-rails-with-ajax-using-acts-as-votable-gem/" title="Next Post: Implement Likes rails With AJAX using Acts as votable Gem">Implement Likes rails With AJAX using Acts as votable Gem &raquo;</a>
       
     </p>
   </footer>
@@ -438,8 +425,8 @@ for me, 2 nd one is not required.</li>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/';
-        var disqus_url = 'http://anoobbava.github.io/blog/2018/02/27/implement-rspec-in-ror-project/';
+        var disqus_identifier = 'http://anoobbava.github.io/blog/2018/09/07/ruby-array-manipulations/';
+        var disqus_url = 'http://anoobbava.github.io/blog/2018/09/07/ruby-array-manipulations/';
         var disqus_script = 'embed.js';
       
     (function () {

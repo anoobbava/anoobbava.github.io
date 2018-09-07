@@ -4,7 +4,7 @@
   <title><![CDATA[Awesome Web Blog]]></title>
   <link href="http://anoobbava.github.io/atom.xml" rel="self"/>
   <link href="http://anoobbava.github.io/"/>
-  <updated>2018-07-02T22:18:36+05:30</updated>
+  <updated>2018-09-07T22:22:07+05:30</updated>
   <id>http://anoobbava.github.io/</id>
   <author>
     <name><![CDATA[Anoob Bava]]></name>
@@ -12,6 +12,180 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Ruby Array Manipulations]]></title>
+    <link href="http://anoobbava.github.io/blog/2018/09/07/ruby-array-manipulations/"/>
+    <updated>2018-09-07T19:59:26+05:30</updated>
+    <id>http://anoobbava.github.io/blog/2018/09/07/ruby-array-manipulations</id>
+    <content type="html"><![CDATA[<p>We will be discussing some built-in functions in Ruby.Most of them are used to fix the logical challenges in Ruby Programing.</p>
+
+<h4>select</h4>
+
+<ul>
+<li>used to filter the collections.</li>
+<li>return type will be an array</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 2, 3, 4, 5].select{ |i| i &gt; 3 }
+</span><span class='line'>
+</span><span class='line'>  #=&gt; [4, 5]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>detect</h4>
+
+<ul>
+<li>will return the first matched value</li>
+<li>returned value will be a single element</li>
+</ul>
+
+
+<pre><code class="`">  [1, 2, 3, 4, 5].detect{ |i| i &gt; 3 }
+
+  #=&gt; 4
+</code></pre>
+
+<h4>reject</h4>
+
+<ul>
+<li>will be the opposite of the select</li>
+<li>will be an array</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 2, 3, 4, 5].reject{ |i| i &gt; 3 }
+</span><span class='line'>
+</span><span class='line'>  #=&gt; [1, 2, 3]</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>equality operator</h4>
+
+<ul>
+<li>denoted by <strong>===</strong></li>
+<li>more used in the case of Reg ex and range</li>
+</ul>
+
+
+<pre><code class="`">  (1..3) === 2
+
+  #=&gt; true
+
+  (1..3) === 4
+
+  #=&gt; false
+
+  /el/ === 'Hello World'
+
+  #=&gt; false
+</code></pre>
+
+<ul>
+<li>LHS should be Range or REGEX and RHS will be the specific object.</li>
+</ul>
+
+
+<h4>grep</h4>
+
+<ul>
+<li>same use in the case of grep</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [6, 14, 28, 47, 12].grep(5..15)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; [6, 14, 12]</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>we have an array like [1, &lsquo;a&rsquo;, &lsquo;b&rsquo;, 2]</li>
+<li>if we do the <code>[1, 'a', 'b', 2].map(&amp;:upcase)</code></li>
+<li>will raise an error</li>
+<li>we can fix those by <strong>grep</strong></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 'a', 'b', 2].grep(String, &:upcase)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; ['A', 'B']</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>sort</h4>
+
+<ul>
+<li>if we have integer and strings in the array .sort command will fail.</li>
+<li>we can clear this issue by using the sort_by method.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  ['5', '2', 3, '1'].sort_by(&:to_i)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; ['1', '2', 3, '5']</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>all?</h4>
+
+<ul>
+<li>return true if all values are true</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [2, 4, 6, 8].all?(&:even?)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>any?</h4>
+
+<ul>
+<li>return true if any of the value is true.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [2, 3, 5, 9].any?(&:even?)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; true</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>reduce</h4>
+
+<ul>
+<li>create a sum of the array</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  [1, 2, 3].reduce(:+)
+</span><span class='line'>
+</span><span class='line'>  #=&gt; 6</span></code></pre></td></tr></table></div></figure>
+
+
+<p>another interested methods are <strong>cycle, next, reverse_cycle </strong></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GCP:4 Deployment Using Mina]]></title>
